@@ -10,7 +10,7 @@
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>base-hexagonal-architecture</artifactId>
+    <artifactId>validacion-identidad</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
 
@@ -95,6 +95,6 @@
     </dependencies>
 
     <modules>
-        <module>base-hexagonal-architecture-web</module>
+        <module>validacion-identidad-web</module>
     </modules>
 </project>
