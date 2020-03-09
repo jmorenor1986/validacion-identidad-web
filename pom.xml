@@ -9,7 +9,7 @@
         <version>2.2.1.RELEASE</version>
         <relativePath/>
     </parent>
-    <groupId>com.example</groupId>
+    <groupId>com.samtel</groupId>
     <artifactId>validacion-identidad</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>

@@ -1,4 +1,4 @@
 server:
   servlet:
-    context-path: /example
+    context-path: /validacion
   port: 5000
