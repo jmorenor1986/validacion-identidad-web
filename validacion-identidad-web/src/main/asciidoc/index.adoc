@@ -1,0 +1,4 @@
+Validación de Identidad
+------------------------
+Se desea disponer de un proceso que permita asegurar la identidad del cliente que está solicitando un crédito por el canal e-commerce.
+Para ello se hará uso del servicio Evidente Master que provee la empresa Experian, el cual proporciona un sistema basado en dos niveles de autenticación: OTP y preguntas reto.

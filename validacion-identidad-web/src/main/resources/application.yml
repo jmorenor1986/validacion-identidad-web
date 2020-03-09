@@ -1,0 +1,4 @@
+server:
+  servlet:
+    context-path: /validacion
+  port: 5000

@@ -9,8 +9,8 @@
         <version>2.2.1.RELEASE</version>
         <relativePath/>
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>base-hexagonal-architecture</artifactId>
+    <groupId>com.samtel</groupId>
+    <artifactId>validacion-identidad</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
 
@@ -95,6 +95,6 @@
     </dependencies>
 
     <modules>
-        <module>base-hexagonal-architecture-web</module>
+        <module>validacion-identidad-web</module>
     </modules>
 </project>
