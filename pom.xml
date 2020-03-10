@@ -25,6 +25,8 @@
         <ascii.doctor.version>2.0.0.RELEASE</ascii.doctor.version>
         <maven.ascii.doctor>1.5.6</maven.ascii.doctor>
         <percent.coverage>80%</percent.coverage>
+        <vavr.version>1.0.0-alpha-3</vavr.version>
+        <spring-cloud.version>1.4.7.RELEASE</spring-cloud.version>
     </properties>
     <dependencies>
         <dependency>
@@ -91,6 +93,16 @@
             <artifactId>cucumber-spring</artifactId>
             <version>${cucumber.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>${vavr.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+            <version>1.4.7.RELEASE</version>
         </dependency>
     </dependencies>
 
