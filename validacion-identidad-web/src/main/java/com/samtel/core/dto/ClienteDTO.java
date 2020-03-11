@@ -12,8 +12,11 @@ public class ClienteDTO {
     private String primerApellido;
     private String segundoApellido;
     private String fechaExpedicion;
-    private String celular;
-    private String tipoDocumento;
-    private String numeroDocumento;
-    private RequestHeaderDTO requestHeaderDTO;
+    private String codAliado;
+    private String usuarioAliado;
+    private String sesionId;
+    private String ipOrigen;
+    private String numeroSolicitudCredito;
+    private String tipoIdentificacion;
+    private String identificacion;
 }
