@@ -1,5 +1,6 @@
 package com.samtel.adapters.primary.rest.identidad;
 
+import com.samtel.adapters.common.GeneralPayload;
 import com.samtel.adapters.primary.rest.Response;
 import com.samtel.adapters.primary.rest.identidad.payload.ClientePayLoad;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ValidarIdentidadController {
 
     @PostMapping("/")
-    public ResponseEntity<Response> validadIdentidad(@RequestBody ClientePayLoad clientePayLoad) {
+    public ResponseEntity<Response> validadIdentidad(@RequestBody GeneralPayload<ClientePayLoad> clientePayLoad) {
         Response response = new Response();
         response.setCodRespuesta("1");
         return new ResponseEntity<>(response, HttpStatus.OK);

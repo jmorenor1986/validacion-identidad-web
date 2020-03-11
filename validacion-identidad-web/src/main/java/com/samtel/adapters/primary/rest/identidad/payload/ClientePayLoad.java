@@ -12,4 +12,7 @@ import lombok.NoArgsConstructor;
 public class ClientePayLoad {
     private String primerNombre;
     private String segundoNombre;
+    private String primerApellido;
+    private String segundoApellido;
+    private String fechaExpedicion;
 }
