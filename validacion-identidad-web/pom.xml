@@ -50,6 +50,8 @@
                                     <excludes>
                                         <exclude>com.samtel.Application</exclude>
                                         <exclude>*Config</exclude>
+                                        <exclude>*DTO</exclude>
+                                        <exclude>*Payload</exclude>
                                     </excludes>
                                     <limits>
                                         <limit>
@@ -96,11 +98,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surfire.version}</version>
-                <configuration>
+                <!--configuration>
                     <includes>
                         <include>**/AcceptanceIT.java</include>
                     </includes>
-                </configuration>
+                </configuration-->
             </plugin>
         </plugins>
     </build>

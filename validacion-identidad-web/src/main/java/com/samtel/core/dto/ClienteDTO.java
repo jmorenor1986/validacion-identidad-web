@@ -1,18 +1,19 @@
-package com.samtel.adapters.primary.rest.identidad.payload;
+package com.samtel.core.dto;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class ClientePayLoad {
+public class ClienteDTO {
     private String primerNombre;
     private String segundoNombre;
     private String primerApellido;
     private String segundoApellido;
     private String fechaExpedicion;
+    private String celular;
+    private String tipoDocumento;
+    private String numeroDocumento;
+    private RequestHeaderDTO requestHeaderDTO;
 }
