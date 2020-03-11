@@ -1,10 +1,15 @@
 package com.samtel.core.services.impl;
 
 import com.samtel.core.dto.ClienteDTO;
+import com.samtel.core.dto.DatosAdicionalesDTO;
+import com.samtel.core.dto.DatosBasicosDTO;
 import com.samtel.core.dto.ResponseDTO;
+import com.samtel.core.errors.GenericError;
+import com.samtel.core.errors.ResourceNotResponse;
 import com.samtel.core.services.ValidarIdentidadService;
 import com.samtel.ports.secondary.rest.IdentidadService;
 import com.samtel.ports.secondary.rest.OTPService;
+import io.vavr.control.Either;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,4 +30,30 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
     public Optional<ResponseDTO> validar(ClienteDTO clienteDTO) {
         return Optional.empty();
     }
+
+    private Either<GenericError, ResponseDTO> clienteValidacion(ClienteDTO clienteDTO) {
+        return identidadService.validarIdentidad(clienteDTO)
+                .map(Either::<GenericError, ResponseDTO>right)
+                .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
+    }
+
+    private Either<GenericError, ResponseDTO> obtenerPreguntasReto(DatosBasicosDTO datosBasicosDTO, DatosAdicionalesDTO datosAdicionalesDTO) {
+        return identidadService.obtenerPreguntasReto(datosBasicosDTO, datosAdicionalesDTO)
+                .map(Either::<GenericError, ResponseDTO>right)
+                .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
+    }
+
+    private Either<GenericError, ResponseDTO> clienteIniciarTransaccion(DatosBasicosDTO datosBasicosDTO, DatosAdicionalesDTO datosAdicionalesDTO) {
+        return otpService.iniciarTransaccion(datosBasicosDTO, datosAdicionalesDTO.getRegValidacion())
+                .map(Either::<GenericError, ResponseDTO>right)
+                .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
+    }
+
+    private Either<GenericError, ResponseDTO> clienteGenerarOTP(DatosBasicosDTO datosBasicosDTO, DatosAdicionalesDTO datosAdicionalesDTO) {
+        return otpService.generarOTP(datosBasicosDTO, datosAdicionalesDTO)
+                .map(Either::<GenericError, ResponseDTO>right)
+                .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
+    }
+
+
 }
