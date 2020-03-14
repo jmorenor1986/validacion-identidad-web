@@ -1,6 +1,6 @@
 package com.samtel.adapters.primary.rest.identidad;
 
-import com.samtel.adapters.common.GeneralPayload;
+import com.samtel.adapters.common.payload.GeneralPayload;
 import com.samtel.adapters.primary.rest.Response;
 import com.samtel.adapters.primary.rest.identidad.payload.ClientePayLoad;
 import org.springframework.http.HttpStatus;
