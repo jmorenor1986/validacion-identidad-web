@@ -12,5 +12,6 @@ public class ClienteDTO {
     private String primerApellido;
     private String segundoApellido;
     private String fechaExpedicion;
+    private String numeroCelular;
     private DatosBasicosDTO datosBasicosDTO;
 }

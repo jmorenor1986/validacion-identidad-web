@@ -7,6 +7,5 @@ import lombok.Data;
 @Builder
 public class DatosAdicionalesDTO {
     private String regValidacion;
-    private String numeroCelular;
     private String idTransaccionOTP;
 }

@@ -2,3 +2,7 @@ server:
   servlet:
     context-path: /validacion
   port: 5000
+
+spring:
+  profiles:
+    active: dev

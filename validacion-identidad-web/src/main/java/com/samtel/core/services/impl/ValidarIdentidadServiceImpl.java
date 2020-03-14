@@ -28,7 +28,8 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
 
     @Override
     public Optional<ResponseDTO> validar(ClienteDTO clienteDTO) {
-        return Optional.empty();
+        Either<GenericError, ResponseDTO> responseValidacion = clienteValidacion(clienteDTO);
+        return Optional.of(responseValidacion.get());
     }
 
     private Either<GenericError, ResponseDTO> clienteValidacion(ClienteDTO clienteDTO) {
