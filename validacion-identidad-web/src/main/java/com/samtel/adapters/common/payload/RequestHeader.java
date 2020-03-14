@@ -1,4 +1,4 @@
-package com.samtel.adapters.common;
+package com.samtel.adapters.common.payload;
 
 import lombok.Builder;
 import lombok.Data;

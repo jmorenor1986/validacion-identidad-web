@@ -7,5 +7,6 @@ import lombok.Data;
 @Builder
 public class ResponseDTO {
     private String codRespuesta;
-    private String respuestaServicio;
+    private Object respuestaServicio;
+    private String resultError;
 }

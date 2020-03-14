@@ -10,6 +10,7 @@ import com.samtel.core.services.ValidarIdentidadService;
 import com.samtel.ports.secondary.rest.IdentidadService;
 import com.samtel.ports.secondary.rest.OTPService;
 import io.vavr.control.Either;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,12 +28,12 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
     }
 
     @Override
-    public Optional<ResponseDTO> validar(ClienteDTO clienteDTO) {
+    public Optional<ResponseDTO> validar(ClienteDTO clienteDTO) throws JSONException {
         Either<GenericError, ResponseDTO> responseValidacion = clienteValidacion(clienteDTO);
         return Optional.of(responseValidacion.get());
     }
 
-    private Either<GenericError, ResponseDTO> clienteValidacion(ClienteDTO clienteDTO) {
+    private Either<GenericError, ResponseDTO> clienteValidacion(ClienteDTO clienteDTO) throws JSONException {
         return identidadService.validarIdentidad(clienteDTO)
                 .map(Either::<GenericError, ResponseDTO>right)
                 .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));

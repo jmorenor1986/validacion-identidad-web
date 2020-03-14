@@ -1,7 +1,7 @@
 package com.samtel.adapters.secondary.rest.clients;
 
-import com.samtel.adapters.common.GeneralPayload;
-import com.samtel.adapters.common.RequestHeader;
+import com.samtel.adapters.common.payload.GeneralPayload;
+import com.samtel.adapters.common.payload.RequestHeader;
 import com.samtel.adapters.secondary.rest.identidad.payload.ClientePayload;
 import com.samtel.adapters.secondary.rest.identidad.payload.FechaExpedicionPayload;
 import com.samtel.adapters.secondary.rest.identidad.payload.SolucionPayload;
