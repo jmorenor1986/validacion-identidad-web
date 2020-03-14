@@ -3,6 +3,8 @@ package com.samtel.adapters.primary.rest.identidad;
 import com.samtel.adapters.common.payload.GeneralPayload;
 import com.samtel.adapters.primary.rest.Response;
 import com.samtel.adapters.primary.rest.identidad.payload.ClientePayLoad;
+import com.samtel.ports.primary.ValidarIdentidadService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/validacion/identidad")
 public class ValidarIdentidadController {
+
+    private final ValidarIdentidadService validarIdentidadService;
+
+    @Autowired
+    public ValidarIdentidadController(ValidarIdentidadService validarIdentidadService) {
+        this.validarIdentidadService = validarIdentidadService;
+    }
 
     @PostMapping("/")
     public ResponseEntity<Response> validadIdentidad(@RequestBody GeneralPayload<ClientePayLoad> clientePayLoad) {
