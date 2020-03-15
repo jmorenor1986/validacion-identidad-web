@@ -1,11 +1,10 @@
 package com.samtel.adapters.secondary.rest.identidad;
 
 import com.samtel.adapters.common.utilities.JsonUtilities;
-import com.samtel.adapters.secondary.rest.identidad.mapper.IdentificacionConverterDtoToPayload;
 import com.samtel.adapters.secondary.rest.clients.IdentificacionCliente;
+import com.samtel.adapters.secondary.rest.identidad.mapper.IdentificacionConverterDtoToPayload;
 import com.samtel.core.dto.ClienteDTO;
 import com.samtel.core.dto.DatosAdicionalesDTO;
-import com.samtel.core.dto.DatosBasicosDTO;
 import com.samtel.core.dto.ResponseDTO;
 import com.samtel.ports.secondary.rest.IdentidadService;
 import org.json.JSONException;
@@ -34,7 +33,7 @@ public class IdentidadServiceImpl implements IdentidadService {
         ResponseEntity<ResponseDTO> result = identificacionCliente.validacionIdentidad(identificacionMapperExt.dtoToRequest(clienteDTO));
         if (result.getStatusCodeValue() == 200) {
             ResponseDTO responseDTO = result.getBody();
-            responseDTO.setRespuestaServicio(jsonUtilities.getValueForGivenKey("RespValidacion","regValidacion", (String) responseDTO.getRespuestaServicio()));
+            responseDTO.setRespuestaServicio(jsonUtilities.getValueForGivenKey("RespValidacion", "regValidacion", (String) responseDTO.getRespuestaServicio()));
             return Optional.of(responseDTO);
         } else
             return Optional.of((ResponseDTO.builder()
@@ -47,7 +46,7 @@ public class IdentidadServiceImpl implements IdentidadService {
     }
 
     @Override
-    public Optional<ResponseDTO> obtenerPreguntasReto(DatosBasicosDTO datosBasicosDTO, DatosAdicionalesDTO datosAdicionalesDTO) {
+    public Optional<ResponseDTO> obtenerPreguntasReto(DatosAdicionalesDTO datosAdicionalesDTO) {
         return Optional.empty();
     }
 }

@@ -1,4 +1,4 @@
-package com.samtel.adapters.primary.rest;
+package com.samtel.adapters.primary.rest.dto;
 
 import lombok.Data;
 

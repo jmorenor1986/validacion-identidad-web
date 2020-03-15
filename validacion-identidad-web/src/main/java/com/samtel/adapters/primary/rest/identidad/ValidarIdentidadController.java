@@ -1,7 +1,7 @@
 package com.samtel.adapters.primary.rest.identidad;
 
 import com.samtel.adapters.common.payload.GeneralPayload;
-import com.samtel.adapters.primary.rest.Response;
+import com.samtel.adapters.primary.rest.dto.Response;
 import com.samtel.adapters.primary.rest.identidad.mapper.IdentificacionConverterPayloadToDto;
 import com.samtel.adapters.primary.rest.identidad.payload.ClienteInput;
 import com.samtel.ports.primary.ValidarIdentidadService;

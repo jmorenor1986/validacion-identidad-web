@@ -1,6 +1,6 @@
 package com.samtel.integration.steps;
 
-import com.samtel.adapters.primary.rest.Response;
+import com.samtel.adapters.primary.rest.dto.Response;
 import com.samtel.adapters.primary.rest.identidad.payload.ClienteInput;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Scope;

@@ -30,11 +30,18 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
     @Override
     public Optional<ResponseDTO> validar(ClienteDTO clienteDTO) throws JSONException {
         Either<GenericError, ResponseDTO> responseValidacion = clienteValidacion(clienteDTO);
+        DatosAdicionalesDTO datosAdicionalesDTO = DatosAdicionalesDTO.builder()
+                .regValidacion(responseValidacion.get().getRespuestaServicio().toString())
+                .datosBasicosDTO(clienteDTO.getDatosBasicosDTO())
+                .build();
         if (responseValidacion.get().getCodRespuesta().equalsIgnoreCase("1") || responseValidacion.get().getCodRespuesta().equalsIgnoreCase("3")) {
-            Either<GenericError, ResponseDTO> responseIniciarTransaccion = clienteIniciarTransaccion(DatosAdicionalesDTO.builder()
-                    .regValidacion(responseValidacion.get().getRespuestaServicio().toString())
-                    .datosBasicosDTO(clienteDTO.getDatosBasicosDTO())
-                    .build());
+            Either<GenericError, ResponseDTO> responseIniciarTransaccion = clienteIniciarTransaccion(datosAdicionalesDTO);
+            if (responseIniciarTransaccion.get().getRespuestaServicio().toString().equalsIgnoreCase("99")) {
+                Either<GenericError, ResponseDTO> preguntasReto = obtenerPreguntasReto(DatosAdicionalesDTO.builder()
+                        .regValidacion(responseValidacion.get().getRespuestaServicio().toString())
+                        .datosBasicosDTO(clienteDTO.getDatosBasicosDTO())
+                        .build());
+            }
         }
         return null;
     }
@@ -45,8 +52,8 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
                 .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
     }
 
-    private Either<GenericError, ResponseDTO> obtenerPreguntasReto(DatosBasicosDTO datosBasicosDTO, DatosAdicionalesDTO datosAdicionalesDTO) {
-        return identidadService.obtenerPreguntasReto(datosBasicosDTO, datosAdicionalesDTO)
+    private Either<GenericError, ResponseDTO> obtenerPreguntasReto(DatosAdicionalesDTO datosAdicionalesDTO) {
+        return identidadService.obtenerPreguntasReto(datosAdicionalesDTO)
                 .map(Either::<GenericError, ResponseDTO>right)
                 .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
     }
