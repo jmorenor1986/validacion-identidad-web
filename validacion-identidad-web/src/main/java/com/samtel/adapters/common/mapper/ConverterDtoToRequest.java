@@ -4,7 +4,7 @@ import com.samtel.adapters.common.payload.GeneralPayload;
 import com.samtel.adapters.common.payload.RequestHeader;
 import com.samtel.core.dto.DatosBasicosDTO;
 
-public abstract class RestRequestMapper<T, R> {
+public abstract class ConverterDtoToRequest<T, R> {
 
     public abstract GeneralPayload<T> dtoToRequest(R request);
 

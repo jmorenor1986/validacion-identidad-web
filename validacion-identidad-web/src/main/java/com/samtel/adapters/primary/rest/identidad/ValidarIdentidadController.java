@@ -2,8 +2,11 @@ package com.samtel.adapters.primary.rest.identidad;
 
 import com.samtel.adapters.common.payload.GeneralPayload;
 import com.samtel.adapters.primary.rest.Response;
-import com.samtel.adapters.primary.rest.identidad.payload.ClientePayLoad;
+import com.samtel.adapters.primary.rest.identidad.mapper.IdentificacionConverterPayloadToDto;
+import com.samtel.adapters.primary.rest.identidad.payload.ClienteInput;
 import com.samtel.ports.primary.ValidarIdentidadService;
+import org.json.JSONException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +20,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class ValidarIdentidadController {
 
     private final ValidarIdentidadService validarIdentidadService;
+    private final IdentificacionConverterPayloadToDto identificacionConverterPayloadToDto;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public ValidarIdentidadController(ValidarIdentidadService validarIdentidadService) {
+    public ValidarIdentidadController(ValidarIdentidadService validarIdentidadService, IdentificacionConverterPayloadToDto identificacionConverterPayloadToDto,
+                                      ModelMapper modelMapper) {
         this.validarIdentidadService = validarIdentidadService;
+        this.identificacionConverterPayloadToDto = identificacionConverterPayloadToDto;
+        this.modelMapper = modelMapper;
     }
 
     @PostMapping("/")
-    public ResponseEntity<Response> validadIdentidad(@RequestBody GeneralPayload<ClientePayLoad> clientePayLoad) {
-        Response response = new Response();
-        response.setCodRespuesta("1");
+    public ResponseEntity<Response> validadIdentidad(@RequestBody GeneralPayload<ClienteInput> clientePayLoad) throws JSONException {
+        Response response = modelMapper.map(validarIdentidadService
+                .validar(identificacionConverterPayloadToDto
+                        .requestToDto(clientePayLoad)), Response.class);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -1,7 +1,7 @@
 package com.samtel.adapters.secondary.rest.identidad;
 
 import com.samtel.adapters.common.utilities.JsonUtilities;
-import com.samtel.adapters.primary.rest.identidad.mapper.IdentificacionMapperExt;
+import com.samtel.adapters.primary.rest.identidad.mapper.IdentificacionConverterDtoToPayload;
 import com.samtel.adapters.secondary.rest.clients.IdentificacionCliente;
 import com.samtel.core.dto.ClienteDTO;
 import com.samtel.core.dto.DatosAdicionalesDTO;
@@ -18,11 +18,11 @@ import java.util.Optional;
 @Service
 public class IdentidadServiceImpl implements IdentidadService {
     private final IdentificacionCliente identificacionCliente;
-    private final IdentificacionMapperExt identificacionMapperExt;
+    private final IdentificacionConverterDtoToPayload identificacionMapperExt;
     private final JsonUtilities jsonUtilities;
 
     @Autowired
-    public IdentidadServiceImpl(IdentificacionCliente identificacionCliente, IdentificacionMapperExt identificacionMapperExt, JsonUtilities jsonUtilities) {
+    public IdentidadServiceImpl(IdentificacionCliente identificacionCliente, IdentificacionConverterDtoToPayload identificacionMapperExt, JsonUtilities jsonUtilities) {
         this.identificacionCliente = identificacionCliente;
         this.identificacionMapperExt = identificacionMapperExt;
         this.jsonUtilities = jsonUtilities;

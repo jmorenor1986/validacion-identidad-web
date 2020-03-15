@@ -6,7 +6,7 @@ import com.samtel.core.dto.DatosBasicosDTO;
 import com.samtel.core.dto.ResponseDTO;
 import com.samtel.core.errors.GenericError;
 import com.samtel.core.errors.ResourceNotResponse;
-import com.samtel.core.services.ValidarIdentidadService;
+import com.samtel.ports.primary.ValidarIdentidadService;
 import com.samtel.ports.secondary.rest.IdentidadService;
 import com.samtel.ports.secondary.rest.OTPService;
 import io.vavr.control.Either;

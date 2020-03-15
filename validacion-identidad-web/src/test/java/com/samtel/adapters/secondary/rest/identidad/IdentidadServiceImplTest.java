@@ -1,7 +1,7 @@
 package com.samtel.adapters.secondary.rest.identidad;
 
 import com.samtel.adapters.common.utilities.JsonUtilities;
-import com.samtel.adapters.primary.rest.identidad.mapper.IdentificacionMapperExt;
+import com.samtel.adapters.primary.rest.identidad.mapper.IdentificacionConverterDtoToPayload;
 import com.samtel.adapters.secondary.rest.clients.IdentificacionCliente;
 import com.samtel.core.dto.ResponseDTO;
 import com.samtel.ports.secondary.rest.IdentidadService;
@@ -23,7 +23,7 @@ class IdentidadServiceImplTest {
 
     @Autowired
     private IdentidadService identidadService;
-    private IdentificacionMapperExt identificacionMapperExt;
+    private IdentificacionConverterDtoToPayload identificacionMapperExt;
     @Autowired
     private JsonUtilities jsonUtilities;
 
@@ -34,7 +34,7 @@ class IdentidadServiceImplTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        identificacionMapperExt = new IdentificacionMapperExt();
+        identificacionMapperExt = new IdentificacionConverterDtoToPayload();
         identidadService = new IdentidadServiceImpl(identificacionCliente, identificacionMapperExt,jsonUtilities);
     }
 
