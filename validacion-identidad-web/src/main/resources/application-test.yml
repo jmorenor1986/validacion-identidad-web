@@ -1,0 +1,4 @@
+servicios:
+  validacionIdentidad: http://evidente-master-credito-consumo-dev.apps.sv-bsnc-arquitectura-openshift.itac.com.co
+  otp: http://evidente-master-credito-consumo-dev.apps.sv-bsnc-arquitectura-openshift.itac.com.co
+

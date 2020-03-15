@@ -1,3 +1,7 @@
 servicios:
   validacionIdentidad: https://experian-validacion.free.beeceptor.com
+  otp: https://experian-validacion.free.beeceptor.com
+
+otp:
+  codigoValidacion: 123
 

@@ -1,4 +1,4 @@
-package com.samtel.adapters.secondary.rest.identidad.payload;
+package com.samtel.adapters.secondary.rest.otp.payload;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.samtel.adapters.secondary.rest.common.payload.SolucionPayload;
@@ -8,10 +8,8 @@ import lombok.Data;
 @Data
 @Builder
 @JsonRootName(value = "requestBody")
-public class ClientePayload {
-    private String primerApellido;
-    private String nombres;
-    private FechaExpedicionPayload fechaExpedicion;
+public class OtpPayload {
+    private String codigoValidacion;
+    private DatosCuestionarioPayload datosCuestionario;
     private SolucionPayload solucion;
-
 }

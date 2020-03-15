@@ -30,7 +30,13 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
     @Override
     public Optional<ResponseDTO> validar(ClienteDTO clienteDTO) throws JSONException {
         Either<GenericError, ResponseDTO> responseValidacion = clienteValidacion(clienteDTO);
-        return Optional.of(responseValidacion.get());
+        if (responseValidacion.get().getCodRespuesta().equalsIgnoreCase("1") || responseValidacion.get().getCodRespuesta().equalsIgnoreCase("3")) {
+            Either<GenericError, ResponseDTO> responseIniciarTransaccion = clienteIniciarTransaccion(DatosAdicionalesDTO.builder()
+                    .regValidacion(responseValidacion.get().getRespuestaServicio().toString())
+                    .datosBasicosDTO(clienteDTO.getDatosBasicosDTO())
+                    .build());
+        }
+        return null;
     }
 
     private Either<GenericError, ResponseDTO> clienteValidacion(ClienteDTO clienteDTO) throws JSONException {
@@ -45,8 +51,8 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
                 .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
     }
 
-    private Either<GenericError, ResponseDTO> clienteIniciarTransaccion(DatosBasicosDTO datosBasicosDTO, DatosAdicionalesDTO datosAdicionalesDTO) {
-        return otpService.iniciarTransaccion(datosBasicosDTO, datosAdicionalesDTO.getRegValidacion())
+    private Either<GenericError, ResponseDTO> clienteIniciarTransaccion(DatosAdicionalesDTO datosAdicionalesDTO) {
+        return otpService.iniciarTransaccion(datosAdicionalesDTO)
                 .map(Either::<GenericError, ResponseDTO>right)
                 .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
     }
@@ -56,6 +62,4 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
                 .map(Either::<GenericError, ResponseDTO>right)
                 .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
     }
-
-
 }

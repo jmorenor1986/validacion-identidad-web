@@ -1,7 +1,7 @@
 package com.samtel.adapters.secondary.rest.identidad;
 
 import com.samtel.adapters.common.utilities.JsonUtilities;
-import com.samtel.adapters.primary.rest.identidad.mapper.IdentificacionConverterDtoToPayload;
+import com.samtel.adapters.secondary.rest.identidad.mapper.IdentificacionConverterDtoToPayload;
 import com.samtel.adapters.secondary.rest.clients.IdentificacionCliente;
 import com.samtel.core.dto.ClienteDTO;
 import com.samtel.core.dto.DatosAdicionalesDTO;
