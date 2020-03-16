@@ -4,7 +4,6 @@ import com.samtel.adapters.common.utilities.JsonUtilities;
 import com.samtel.adapters.secondary.rest.clients.OtpCliente;
 import com.samtel.adapters.secondary.rest.otp.mapper.OtpConverterDtoToPayload;
 import com.samtel.core.dto.DatosAdicionalesDTO;
-import com.samtel.core.dto.DatosBasicosDTO;
 import com.samtel.core.dto.ResponseDTO;
 import com.samtel.ports.secondary.rest.OTPService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class OTPServiceImpl implements OTPService {
     }
 
     @Override
-    public Optional<ResponseDTO> generarOTP(DatosBasicosDTO datosBasicosDTO, DatosAdicionalesDTO datosAdicionalesDTO) {
+    public Optional<ResponseDTO> generarOTP(DatosAdicionalesDTO datosAdicionalesDTO) {
         return Optional.empty();
     }
 
