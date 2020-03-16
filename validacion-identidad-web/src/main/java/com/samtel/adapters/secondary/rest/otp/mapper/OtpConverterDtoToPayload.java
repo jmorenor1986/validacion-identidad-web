@@ -38,7 +38,7 @@ public class OtpConverterDtoToPayload extends ConverterDtoToRequest<OtpPayload, 
                         .idTransaccionOTP(request.getIdTransaccionOTP())
                         .build())
                 .datosReconocer(DatosReconocerPayload.builder()
-                        .numeroCelular(request.getDatosBasicosDTO().getNumeroCelular())
+                        .numeroCelular(request.getNumeroCelular())
                         .build())
                 .build();
         result.setRequestHeader(setHeader(request.getDatosBasicosDTO()));

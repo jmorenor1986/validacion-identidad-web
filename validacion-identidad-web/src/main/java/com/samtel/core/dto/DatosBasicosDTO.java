@@ -13,5 +13,4 @@ public class DatosBasicosDTO {
     private String numeroSolicitudCredito;
     private String tipoIdentificacion;
     private String identificacion;
-    private String numeroCelular;
 }

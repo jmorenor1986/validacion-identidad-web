@@ -1,9 +1,6 @@
 package com.samtel.core.services.impl;
 
-import com.samtel.core.dto.ClienteDTO;
-import com.samtel.core.dto.DatosAdicionalesDTO;
-import com.samtel.core.dto.DatosBasicosDTO;
-import com.samtel.core.dto.ResponseDTO;
+import com.samtel.core.dto.*;
 import com.samtel.core.errors.GenericError;
 import com.samtel.core.errors.ResourceNotResponse;
 import com.samtel.ports.primary.ValidarIdentidadService;
@@ -34,13 +31,15 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
         DatosAdicionalesDTO datosAdicionalesDTO = DatosAdicionalesDTO.builder()
                 .regValidacion(responseValidacion.get().getRespuestaServicio().toString())
                 .datosBasicosDTO(clienteDTO.getDatosBasicosDTO())
+                .numeroCelular(clienteDTO.getNumeroCelular())
                 .build();
         //Si la respuesta es 1 o 5
         if (responseValidacion.get().getCodRespuesta().equalsIgnoreCase("1") || responseValidacion.get().getCodRespuesta().equalsIgnoreCase("5")) {
             //Invoca cliente iniciar transaccion
             Either<GenericError, ResponseDTO> responseIniciarTransaccion = clienteIniciarTransaccion(datosAdicionalesDTO);
             //Si codResultadoOTP es 99
-            if (responseIniciarTransaccion.get().getRespuestaServicio().toString().equalsIgnoreCase("99")) {
+            OTPDTO result = (OTPDTO) responseIniciarTransaccion.get().getRespuestaServicio();
+            if (result.getCodResultadoOTP().equalsIgnoreCase("99")) {
                 //retorno Cod respuesta 3 y el servicio de JSON preguntas
                 return invocaPreguntasReto(clienteDTO.getDatosBasicosDTO(), responseValidacion.get().getRespuestaServicio().toString());
             }
@@ -48,8 +47,7 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
             else {
                 //Invocar cliente generarOTP
                 Either<GenericError, ResponseDTO> responseGenerarOTP = invocaGenerarOTP(clienteDTO.getDatosBasicosDTO(),
-                        responseValidacion.get().getRespuestaServicio().toString(),
-                        responseIniciarTransaccion.get().getRespuestaServicio().toString());
+                        responseValidacion.get().getRespuestaServicio().toString(), result.getIdTransaccionOTP());
                 //Si codResultadoOTP es 99
                 if (responseGenerarOTP.get().getRespuestaServicio().toString().equalsIgnoreCase("99")) {
                     //Invocar preguntas reto
