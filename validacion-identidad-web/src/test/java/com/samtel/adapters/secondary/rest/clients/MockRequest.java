@@ -4,7 +4,7 @@ import com.samtel.adapters.common.payload.GeneralPayload;
 import com.samtel.adapters.common.payload.RequestHeader;
 import com.samtel.adapters.secondary.rest.identidad.payload.ClientePayload;
 import com.samtel.adapters.secondary.rest.identidad.payload.FechaExpedicionPayload;
-import com.samtel.adapters.secondary.rest.identidad.payload.SolucionPayload;
+import com.samtel.adapters.secondary.rest.common.payload.SolucionPayload;
 
 public class MockRequest {
 

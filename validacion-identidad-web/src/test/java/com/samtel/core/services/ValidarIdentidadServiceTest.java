@@ -1,9 +1,9 @@
 package com.samtel.core.services;
 
 import com.samtel.adapters.secondary.rest.identidad.MockClienteDTORequest;
-import com.samtel.core.dto.ClienteDTO;
 import com.samtel.core.dto.ResponseDTO;
 import com.samtel.core.services.impl.ValidarIdentidadServiceImpl;
+import com.samtel.ports.primary.ValidarIdentidadService;
 import com.samtel.ports.secondary.rest.IdentidadService;
 import com.samtel.ports.secondary.rest.OTPService;
 import org.json.JSONException;

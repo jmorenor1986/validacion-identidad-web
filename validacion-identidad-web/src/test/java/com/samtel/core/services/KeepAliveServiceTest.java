@@ -1,5 +1,6 @@
 package com.samtel.core.services;
 
+import com.samtel.core.services.impl.KeepAliveServiceImpl;
 import com.samtel.ports.primary.KeepAliveService;
 import org.junit.Assert;
 import org.junit.Before;

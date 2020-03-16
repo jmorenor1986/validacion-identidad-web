@@ -8,4 +8,6 @@ import lombok.Data;
 public class DatosAdicionalesDTO {
     private String regValidacion;
     private String idTransaccionOTP;
+    private String numeroCelular;
+    private DatosBasicosDTO datosBasicosDTO;
 }

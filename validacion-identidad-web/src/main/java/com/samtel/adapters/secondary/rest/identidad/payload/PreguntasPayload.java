@@ -8,10 +8,7 @@ import lombok.Data;
 @Data
 @Builder
 @JsonRootName(value = "requestBody")
-public class ClientePayload {
-    private String primerApellido;
-    private String nombres;
-    private FechaExpedicionPayload fechaExpedicion;
+public class PreguntasPayload {
+    private String regValidacion;
     private SolucionPayload solucion;
-
 }

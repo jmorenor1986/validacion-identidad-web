@@ -1,4 +1,4 @@
-package com.samtel.adapters.secondary.rest.identidad.payload;
+package com.samtel.adapters.secondary.rest.common.payload;
 
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Builder;

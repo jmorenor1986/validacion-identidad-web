@@ -1,7 +1,7 @@
 package com.samtel.integration.steps;
 
-import com.samtel.adapters.primary.rest.Response;
-import com.samtel.adapters.primary.rest.identidad.payload.ClientePayLoad;
+import com.samtel.adapters.primary.rest.dto.Response;
+import com.samtel.adapters.primary.rest.identidad.payload.ClienteInput;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpEntity;
@@ -30,9 +30,9 @@ public class HttpClient {
         return restTemplate.getForEntity(exampleEndPoint().concat(resource), String.class).getBody();
     }
 
-    public ResponseEntity<?> getWithRequest(String resource, ClientePayLoad payload) {
+    public ResponseEntity<?> getWithRequest(String resource, ClienteInput payload) {
         System.out.println(exampleEndPoint().concat(resource));
-        return restTemplate.getForEntity(exampleEndPoint().concat(resource), ClientePayLoad.class, payload);
+        return restTemplate.getForEntity(exampleEndPoint().concat(resource), ClienteInput.class, payload);
     }
 
     public ResponseEntity<?> postWithRequest(String resource, Object payload){

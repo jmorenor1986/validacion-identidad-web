@@ -1,4 +1,4 @@
-package com.samtel.core.services;
+package com.samtel.ports.primary;
 
 import com.samtel.core.dto.ClienteDTO;
 import com.samtel.core.dto.ResponseDTO;

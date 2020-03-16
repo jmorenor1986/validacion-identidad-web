@@ -1,7 +1,7 @@
 package com.samtel.integration.steps;
 
-import com.samtel.adapters.primary.rest.Response;
-import com.samtel.adapters.primary.rest.identidad.payload.ClientePayLoad;
+import com.samtel.adapters.primary.rest.dto.Response;
+import com.samtel.adapters.primary.rest.identidad.payload.ClienteInput;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class ValidacionIdentidadStep extends ContextLoader {
 
-    private ClientePayLoad clientePayload;
+    private ClienteInput clientePayload;
     private ResponseEntity<?> response;
     @Autowired
     protected HttpClient httpClient;
@@ -26,7 +26,7 @@ public class ValidacionIdentidadStep extends ContextLoader {
     public void clienteConDatos(DataTable payload) {
         List<Map<String, String>> rows = payload.asMaps(String.class, String.class);
         for (Map<String, String> columns : rows) {
-            clientePayload = ClientePayLoad.builder()
+            clientePayload = ClienteInput.builder()
                     .primerNombre(columns.get("primerNombre"))
                     .segundoNombre(columns.get("segundoNombre"))
                     .build();

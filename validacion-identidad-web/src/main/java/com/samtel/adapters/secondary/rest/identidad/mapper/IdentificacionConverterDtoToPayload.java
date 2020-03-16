@@ -1,15 +1,15 @@
-package com.samtel.adapters.primary.rest.identidad.mapper;
+package com.samtel.adapters.secondary.rest.identidad.mapper;
 
-import com.samtel.adapters.common.mapper.RestRequestMapper;
+import com.samtel.adapters.common.mapper.ConverterDtoToRequest;
 import com.samtel.adapters.common.payload.GeneralPayload;
 import com.samtel.adapters.secondary.rest.identidad.payload.ClientePayload;
 import com.samtel.adapters.secondary.rest.identidad.payload.FechaExpedicionPayload;
-import com.samtel.adapters.secondary.rest.identidad.payload.SolucionPayload;
+import com.samtel.adapters.secondary.rest.common.payload.SolucionPayload;
 import com.samtel.core.dto.ClienteDTO;
 import org.springframework.stereotype.Service;
 
 @Service
-public class IdentificacionMapperExt extends RestRequestMapper<ClientePayload, ClienteDTO> {
+public class IdentificacionConverterDtoToPayload extends ConverterDtoToRequest<ClientePayload, ClienteDTO> {
     @Override
     public GeneralPayload<ClientePayload> dtoToRequest(ClienteDTO request) {
         GeneralPayload<ClientePayload> result = new GeneralPayload<>();
