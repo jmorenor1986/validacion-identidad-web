@@ -1,4 +1,4 @@
-package com.samtel.adapters.primary.rest.identidad.payload;
+package com.samtel.adapters.primary.rest.identidad.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class ClienteInput {
     private String primerNombre;
     private String segundoNombre;

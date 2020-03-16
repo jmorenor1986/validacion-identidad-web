@@ -9,4 +9,6 @@ public interface OTPService {
     public Optional<ResponseDTO> generarOTP(DatosAdicionalesDTO datosAdicionalesDTO);
 
     public Optional<ResponseDTO> iniciarTransaccion(DatosAdicionalesDTO datosAdicionalesDTO);
+
+    public Optional<ResponseDTO> verificarOTP(DatosAdicionalesDTO datosAdicionalesDTO);
 }

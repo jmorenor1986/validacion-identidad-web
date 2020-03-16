@@ -2,7 +2,7 @@ package com.samtel.adapters.primary.rest.identidad.mapper;
 
 import com.samtel.adapters.common.mapper.ConverterRequestToDto;
 import com.samtel.adapters.common.payload.GeneralPayload;
-import com.samtel.adapters.primary.rest.identidad.payload.ClienteInput;
+import com.samtel.adapters.primary.rest.identidad.input.ClienteInput;
 import com.samtel.core.dto.ClienteDTO;
 import org.springframework.stereotype.Service;
 
