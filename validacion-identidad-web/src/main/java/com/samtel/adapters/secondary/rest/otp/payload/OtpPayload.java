@@ -12,4 +12,6 @@ public class OtpPayload {
     private String codigoValidacion;
     private DatosCuestionarioPayload datosCuestionario;
     private SolucionPayload solucion;
+    private DatosReconocerPayload datosReconocer;
+    private DatosCodigoOTPPayload datosCodigoOTP;
 }

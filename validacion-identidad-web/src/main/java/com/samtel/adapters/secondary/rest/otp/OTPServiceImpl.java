@@ -3,6 +3,7 @@ package com.samtel.adapters.secondary.rest.otp;
 import com.samtel.adapters.common.utilities.JsonUtilities;
 import com.samtel.adapters.secondary.rest.clients.OtpCliente;
 import com.samtel.adapters.secondary.rest.otp.mapper.OtpConverterDtoToPayload;
+import com.samtel.adapters.secondary.rest.otp.response.OTPResponse;
 import com.samtel.core.dto.DatosAdicionalesDTO;
 import com.samtel.core.dto.ResponseDTO;
 import com.samtel.ports.secondary.rest.OTPService;
@@ -27,7 +28,21 @@ public class OTPServiceImpl implements OTPService {
 
     @Override
     public Optional<ResponseDTO> generarOTP(DatosAdicionalesDTO datosAdicionalesDTO) {
-        return Optional.empty();
+        ResponseEntity<ResponseDTO> result = otpCliente.generarOTP(otpConverterDtoToPayload.dtoToRequest((datosAdicionalesDTO)));
+        if (result.getStatusCodeValue() == 200) {
+            ResponseDTO responseDTO = result.getBody();
+
+            responseDTO.setRespuestaServicio(OTPResponse.builder()
+                    .codResultadoOTP(jsonUtilities.getValueForGivenKey("RespValidacion", "codResultadoOTP", (String) responseDTO.getRespuestaServicio()))
+                    .idTransaccionOTP(jsonUtilities.getValueForGivenKey("RespValidacion", "idTransaccionOTP", (String) responseDTO.getRespuestaServicio()))
+                    .build());
+            return Optional.of(responseDTO);
+        } else
+            return Optional.of((ResponseDTO.builder()
+                    .codRespuesta("" + result.getStatusCodeValue())
+                    .respuestaServicio(null)
+                    .resultError("Error llamando al servicio ")
+                    .build()));
     }
 
     @Override
@@ -35,7 +50,10 @@ public class OTPServiceImpl implements OTPService {
         ResponseEntity<ResponseDTO> result = otpCliente.iniciarTransaccion(otpConverterDtoToPayload.dtoToRequest(datosAdicionalesDTO));
         if (result.getStatusCodeValue() == 200) {
             ResponseDTO responseDTO = result.getBody();
-            responseDTO.setRespuestaServicio(jsonUtilities.getValueForGivenKey("RespValidacion", "codResultadoOTP", (String) responseDTO.getRespuestaServicio()));
+
+            responseDTO.setRespuestaServicio(OTPResponse.builder()
+                    .codResultadoOTP(jsonUtilities.getValueForGivenKey("RespValidacion", "codResultadoOTP", (String) responseDTO.getRespuestaServicio()))
+                    .build());
             return Optional.of(responseDTO);
         } else
             return Optional.of((ResponseDTO.builder()

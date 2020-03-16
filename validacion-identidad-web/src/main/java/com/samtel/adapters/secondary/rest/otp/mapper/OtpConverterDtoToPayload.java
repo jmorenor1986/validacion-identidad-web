@@ -4,7 +4,9 @@ import com.samtel.adapters.common.mapper.ConverterDtoToRequest;
 import com.samtel.adapters.common.payload.GeneralPayload;
 import com.samtel.adapters.common.properties.OtpProperties;
 import com.samtel.adapters.secondary.rest.common.payload.SolucionPayload;
+import com.samtel.adapters.secondary.rest.otp.payload.DatosCodigoOTPPayload;
 import com.samtel.adapters.secondary.rest.otp.payload.DatosCuestionarioPayload;
+import com.samtel.adapters.secondary.rest.otp.payload.DatosReconocerPayload;
 import com.samtel.adapters.secondary.rest.otp.payload.OtpPayload;
 import com.samtel.core.dto.DatosAdicionalesDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,12 @@ public class OtpConverterDtoToPayload extends ConverterDtoToRequest<OtpPayload, 
                 .solucion(SolucionPayload.builder()
                         .codSapSolucion("")
                         .nitEntidadExterna("")
+                        .build())
+                .datosCodigoOTP(DatosCodigoOTPPayload.builder()
+                        .idTransaccionOTP(request.getIdTransaccionOTP())
+                        .build())
+                .datosReconocer(DatosReconocerPayload.builder()
+                        .numeroCelular(request.getDatosBasicosDTO().getNumeroCelular())
                         .build())
                 .build();
         result.setRequestHeader(setHeader(request.getDatosBasicosDTO()));
