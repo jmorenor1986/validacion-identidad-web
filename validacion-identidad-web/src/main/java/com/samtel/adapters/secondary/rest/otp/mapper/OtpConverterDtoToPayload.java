@@ -36,6 +36,7 @@ public class OtpConverterDtoToPayload extends ConverterDtoToRequest<OtpPayload, 
                         .build())
                 .datosCodigoOTP(DatosCodigoOTPPayload.builder()
                         .idTransaccionOTP(request.getIdTransaccionOTP())
+                        .codigoOTP(request.getCodigoOTP())
                         .build())
                 .datosReconocer(DatosReconocerPayload.builder()
                         .numeroCelular(request.getNumeroCelular())

@@ -17,5 +17,7 @@ public interface OtpCliente {
     @RequestMapping(method = RequestMethod.POST, value = "/generarotp")
     ResponseEntity<ResponseDTO> generarOTP(GeneralPayload<OtpPayload> payload);
 
+    @RequestMapping(method = RequestMethod.POST, value = "/verificarotp")
+    ResponseEntity<ResponseDTO> verificarOTP(GeneralPayload<OtpPayload> payload);
 
 }

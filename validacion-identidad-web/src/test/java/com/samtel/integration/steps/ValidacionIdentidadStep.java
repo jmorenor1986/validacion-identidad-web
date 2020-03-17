@@ -1,7 +1,7 @@
 package com.samtel.integration.steps;
 
 import com.samtel.adapters.primary.rest.dto.Response;
-import com.samtel.adapters.primary.rest.identidad.payload.ClienteInput;
+import com.samtel.adapters.primary.rest.identidad.input.ClienteInput;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;

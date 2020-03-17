@@ -38,11 +38,7 @@ public class OTPServiceImpl implements OTPService {
                     .build());
             return Optional.of(responseDTO);
         } else
-            return Optional.of((ResponseDTO.builder()
-                    .codRespuesta("" + result.getStatusCodeValue())
-                    .respuestaServicio(null)
-                    .resultError("Error llamando al servicio ")
-                    .build()));
+            return setResponseError("GENERAR_OTP", "" + result.getStatusCodeValue());
     }
 
     @Override
@@ -50,17 +46,29 @@ public class OTPServiceImpl implements OTPService {
         ResponseEntity<ResponseDTO> result = otpCliente.iniciarTransaccion(otpConverterDtoToPayload.dtoToRequest(datosAdicionalesDTO));
         if (result.getStatusCodeValue() == 200) {
             ResponseDTO responseDTO = result.getBody();
-
             responseDTO.setRespuestaServicio(OTPResponse.builder()
                     .codResultadoOTP(jsonUtilities.getValueForGivenKey("RespValidacion", "codResultadoOTP", (String) responseDTO.getRespuestaServicio()))
                     .build());
             return Optional.of(responseDTO);
         } else
-            return Optional.of((ResponseDTO.builder()
-                    .codRespuesta("" + result.getStatusCodeValue())
-                    .respuestaServicio(null)
-                    .resultError("Error llamando al servicio ")
-                    .build()));
+            return setResponseError("INICIAR_TRANSACCION", "" + result.getStatusCodeValue());
+    }
+
+    @Override
+    public Optional<ResponseDTO> verificarOTP(DatosAdicionalesDTO datosAdicionalesDTO) {
+        ResponseEntity<ResponseDTO> result = otpCliente.verificarOTP(otpConverterDtoToPayload.dtoToRequest(datosAdicionalesDTO));
+        if (result.getStatusCodeValue() == 200) {
+            return Optional.of(result.getBody());
+        } else
+            return setResponseError("VERIFICAR_OTP", "" + result.getStatusCodeValue());
+    }
+
+    private Optional<ResponseDTO> setResponseError(String nameService, String statusCode) {
+        return Optional.of((ResponseDTO.builder()
+                .codRespuesta("" + statusCode)
+                .respuestaServicio(null)
+                .resultError("Error llamando al servicio " + nameService)
+                .build()));
     }
 
 }

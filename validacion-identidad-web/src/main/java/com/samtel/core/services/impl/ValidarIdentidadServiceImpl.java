@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -28,6 +29,8 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
     public Optional<ResponseDTO> validar(ClienteDTO clienteDTO) throws JSONException {
         //Invocar cliente validacion
         Either<GenericError, ResponseDTO> responseValidacion = clienteValidacion(clienteDTO);
+        if (!Objects.isNull(responseValidacion.get().getResultError()) && !responseValidacion.get().getResultError().isEmpty())
+            return Optional.of(responseValidacion.get());
         DatosAdicionalesDTO datosAdicionalesDTO = DatosAdicionalesDTO.builder()
                 .regValidacion(responseValidacion.get().getRespuestaServicio().toString())
                 .datosBasicosDTO(clienteDTO.getDatosBasicosDTO())
@@ -59,11 +62,12 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
             }
         }//Si Cod respuesta no es 1 0 5 pero es 9
         else if (responseValidacion.get().getCodRespuesta().equalsIgnoreCase("9"))
-            return setResponseDTO(null, "1");
+            return setResponseDTO(null, "0");
             //Si Cod respuesta no es 9
         else
-            return setResponseDTO(null, "0");
+            return setResponseDTO(null, "1");
     }
+
 
     private Either<GenericError, ResponseDTO> clienteValidacion(ClienteDTO clienteDTO) throws JSONException {
         return identidadService.validarIdentidad(clienteDTO)
