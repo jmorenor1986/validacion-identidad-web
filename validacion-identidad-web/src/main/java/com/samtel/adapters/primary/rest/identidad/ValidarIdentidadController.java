@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/validacion/identidad")
+@RequestMapping("/v1/identidad")
 public class ValidarIdentidadController {
 
     private final ValidarIdentidadService validarIdentidadService;
