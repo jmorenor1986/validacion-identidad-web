@@ -68,13 +68,6 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
             return setResponseDTO(null, "1");
     }
 
-    @Override
-    public Optional<ResponseDTO> verificarPreguntas(CuestionarioDTO cuestionarioDTO) {
-        Either<GenericError, ResponseDTO> verificarPreguntasReto = verificarPreguntasReto(cuestionarioDTO);
-        if (verificarPreguntasReto.get().getRespuestaServicio().toString().isEmpty())
-            return setResponseDTO("null", "0");
-        return setResponseDTO("null", "1");
-    }
 
     private Either<GenericError, ResponseDTO> clienteValidacion(ClienteDTO clienteDTO) throws JSONException {
         return identidadService.validarIdentidad(clienteDTO)
@@ -86,12 +79,6 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
         return identidadService.obtenerPreguntasReto(datosAdicionalesDTO)
                 .map(Either::<GenericError, ResponseDTO>right)
                 .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
-    }
-
-    private Either<GenericError, ResponseDTO> verificarPreguntasReto(CuestionarioDTO cuestionarioDTO) {
-        return identidadService.validarPreguntasReto(cuestionarioDTO)
-                .map(Either::<GenericError, ResponseDTO>right)
-                .orElse(Either.left(new ResourceNotResponse(("El servicio no responde"))));
     }
 
     private Either<GenericError, ResponseDTO> clienteIniciarTransaccion(DatosAdicionalesDTO datosAdicionalesDTO) {

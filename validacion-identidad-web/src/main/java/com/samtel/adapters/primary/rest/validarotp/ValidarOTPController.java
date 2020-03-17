@@ -3,6 +3,7 @@ package com.samtel.adapters.primary.rest.validarotp;
 import com.samtel.adapters.common.payload.GeneralPayload;
 import com.samtel.adapters.primary.rest.dto.Response;
 import com.samtel.adapters.primary.rest.validarotp.input.OtpInput;
+import com.samtel.adapters.primary.rest.validarotp.mapper.OtpConverterPayloadToDto;
 import com.samtel.ports.primary.ValidarOTPService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

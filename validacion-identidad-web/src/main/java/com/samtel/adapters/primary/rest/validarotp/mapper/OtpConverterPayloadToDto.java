@@ -1,4 +1,4 @@
-package com.samtel.adapters.primary.rest.validarotp;
+package com.samtel.adapters.primary.rest.validarotp.mapper;
 
 import com.samtel.adapters.common.mapper.ConverterRequestToDto;
 import com.samtel.adapters.common.payload.GeneralPayload;
