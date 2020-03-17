@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +30,7 @@ public class ValidarOTPController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Response> validarOTP(GeneralPayload<OtpInput> otpPayload) {
+    public ResponseEntity<Response> validarOTP(@RequestBody GeneralPayload<OtpInput> otpPayload) {
         Response response = modelMapper
                 .map(validarOTPService.validarOTP(otpConverterPayloadToDto
                         .requestToDto(otpPayload)), Response.class);
