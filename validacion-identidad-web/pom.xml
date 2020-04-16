@@ -18,7 +18,7 @@
         </dependency>
     </dependencies>
     <properties>
-        <start-class>com.samtel.Application</start-class>
+        <start-class>co.com.santander.Application</start-class>
     </properties>
 
     <build>
@@ -56,7 +56,7 @@
                                 <rule>
                                     <element>CLASS</element>
                                     <excludes>
-                                        <exclude>com.samtel.Application</exclude>
+                                        <exclude>co.com.santander.Application</exclude>
                                         <exclude>*Config</exclude>
                                         <exclude>*DTO</exclude>
                                         <exclude>*Payload</exclude>
