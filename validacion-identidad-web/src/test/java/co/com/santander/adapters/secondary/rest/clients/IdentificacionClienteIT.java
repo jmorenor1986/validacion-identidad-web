@@ -8,16 +8,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @SpringBootTest
 public class IdentificacionClienteIT {
 
     @Autowired
     private IdentificacionCliente identificacionCliente;
 
-    @Test
-    public void testValidarIdentificacion() {
-        ResponseEntity<?> result = identificacionCliente.validacionIdentidad(MockRequest.clientePayload());
-        Assert.assertEquals(200, result.getStatusCodeValue());
-    }
+    //@Test
+    //public void testValidarIdentificacion() {
+    //    ResponseEntity<?> result = identificacionCliente.validacionIdentidad(MockRequest.clientePayload());
+    //    Assert.assertEquals(200, result.getStatusCodeValue());
+    //}
 }
