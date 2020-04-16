@@ -41,7 +41,7 @@ public class ValidacionIdentidadStep extends ContextLoader {
 
     @Then("retorna codRespuesta {string}")
     public void retornaCodRespuesta(String codRespuesta) {
-        Response body = (Response) response.getBody();
+        Response    body = (Response) response.getBody();
         Assert.assertEquals(codRespuesta, body.getCodRespuesta());
     }
 
