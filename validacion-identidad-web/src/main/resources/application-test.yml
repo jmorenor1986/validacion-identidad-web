@@ -1,4 +1,10 @@
+evidente-master:
+  service-name: evidente-master
+  url: https://experian-validacion.free.beeceptor.com
+
 servicios:
-  validacionIdentidad: http://evidente-master-credito-consumo-dev.apps.sv-bsnc-arquitectura-openshift.itac.com.co
   otp: http://evidente-master-credito-consumo-dev.apps.sv-bsnc-arquitectura-openshift.itac.com.co
+
+otp:
+  codigoValidacion: 123
 

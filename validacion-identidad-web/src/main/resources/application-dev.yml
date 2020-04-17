@@ -1,5 +1,8 @@
+evidente-master:
+  service-name: evidente-master
+  url: https://experian-validacion.free.beeceptor.com
+
 servicios:
-  validacionIdentidad: https://experian-validacion.free.beeceptor.com
   otp: https://experian-validacion.free.beeceptor.com
 
 otp:
