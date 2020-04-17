@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "otp", url = "${servicios.otp}")
+@FeignClient(value = "${evidente-master.service-name-otp}", url = "${evidente-master.url}")
 public interface OtpCliente {
 
     @RequestMapping(method = RequestMethod.POST, value = "/iniciartransotp")

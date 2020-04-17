@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestClientException;
 
-@FeignClient(name = "${evidente-master.service-name}", url = "${evidente-master.url}")
+@FeignClient(value = "${evidente-master.service-name}", url = "${evidente-master.url}")
 public interface IdentificacionCliente {
 
     @RequestMapping(method = RequestMethod.POST, value = "/validar")
