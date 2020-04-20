@@ -3,6 +3,10 @@ server:
     context-path: /validacion
   port: 5000
 
-spring:
-  profiles:
-    active: dev
+evidente-master:
+  service-name: evidente-master
+  url: https://experian-validacion.free.beeceptor.com
+  service-name-otp: otp-evidente-master
+
+otp:
+  codigoValidacion: 123
