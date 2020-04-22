@@ -33,9 +33,7 @@ public class ValidarIdentidadController {
 
     @PostMapping("/")
     public ResponseEntity<Response> validadIdentidad(@RequestBody GeneralPayload<ClienteInput> clientePayLoad) throws JSONException {
-        Response response = modelMapper.map(validarIdentidadService
-                .validar(identificacionConverterPayloadToDto
-                        .requestToDto(clientePayLoad)).get(), Response.class);
+        Response response = modelMapper.map(validarIdentidadService.validar(identificacionConverterPayloadToDto.requestToDto(clientePayLoad)).get(), Response.class);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

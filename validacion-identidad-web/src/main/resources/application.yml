@@ -10,3 +10,12 @@ evidente-master:
 
 otp:
   codigoValidacion: 123
+
+logging:
+  level:
+    co:
+      com:
+        santander:
+          adapters:
+            secondary:
+              rest: DEBUG

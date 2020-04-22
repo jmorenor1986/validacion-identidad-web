@@ -61,6 +61,7 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
                 }
             }
         }//Si Cod respuesta no es 1 0 5 pero es 9
+        //TODO ¿Por que las respuestas para esto es NULL?
         else if (responseValidacion.get().getCodRespuesta().equalsIgnoreCase("9"))
             return setResponseDTO(null, "0");
             //Si Cod respuesta no es 9
