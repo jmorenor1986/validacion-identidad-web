@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/features/",
-        plugin = {"pretty", "html:target/cucumber/samtel"},
-        glue = "com.samtel.integration.steps")
+        plugin = {"pretty", "html:target/cucumber/santander"},
+        glue = "co.com.santander.integration.steps")
 public class AcceptanceIT {
 }

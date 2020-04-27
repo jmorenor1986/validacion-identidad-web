@@ -1,7 +1,7 @@
 server:
   servlet:
     context-path: /validacion
-  port: 5000
+  port: 5002
 
 evidente-master:
   service-name: evidente-master
