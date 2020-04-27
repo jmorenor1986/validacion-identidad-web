@@ -12,7 +12,7 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.basePackage("com.samtel.adapters.primary.rest"))
+                .apis(RequestHandlerSelectors.basePackage("co.com.santander.adapters.primary.rest"))
                 .paths(PathSelectors.any())
                 .build();
     }

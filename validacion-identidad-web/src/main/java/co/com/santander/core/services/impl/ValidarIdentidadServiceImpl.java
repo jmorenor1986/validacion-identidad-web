@@ -62,10 +62,10 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
             }
         }//Si Cod respuesta no es 1 0 5 pero es 9
         else if (responseValidacion.get().getCodRespuesta().equalsIgnoreCase("9"))
-            return setResponseDTO(null, "0");
+            return setResponseDTO("Cliente no viable, se le permite reintentar", "0");
             //Si Cod respuesta no es 9
         else
-            return setResponseDTO(null, "1");
+            return setResponseDTO("Cliente no viable", "1");
     }
 
 
