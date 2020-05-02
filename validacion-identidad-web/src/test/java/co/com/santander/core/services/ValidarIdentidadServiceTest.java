@@ -36,7 +36,7 @@ public class ValidarIdentidadServiceTest {
         final ResponseDTO responseDTO = ResponseDTO.builder()
                 .respuestaServicio("123456")
                 .codRespuesta("1")
-                .resultError("null")
+                .mensajeError("null")
                 .build();
         Mockito.when(identidadService.validarIdentidad(MockClienteDTORequest.getClientDTO())).thenReturn(Optional.of(responseDTO));
         Optional<ResponseDTO> result = validarIdentidadService.validar(MockClienteDTORequest.getClientDTO());

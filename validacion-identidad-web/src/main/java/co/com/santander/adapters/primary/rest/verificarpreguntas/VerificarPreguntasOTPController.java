@@ -1,7 +1,7 @@
 package co.com.santander.adapters.primary.rest.verificarpreguntas;
 
 import co.com.santander.adapters.common.payload.GeneralPayload;
-import co.com.santander.adapters.primary.rest.dto.Response;
+import co.com.santander.adapters.primary.rest.common.dto.Response;
 import co.com.santander.adapters.primary.rest.verificarpreguntas.input.VerificarPreguntasInput;
 import co.com.santander.adapters.primary.rest.verificarpreguntas.mapper.PreguntasConverterPayloadToDto;
 import co.com.santander.ports.primary.VerificarPreguntasService;

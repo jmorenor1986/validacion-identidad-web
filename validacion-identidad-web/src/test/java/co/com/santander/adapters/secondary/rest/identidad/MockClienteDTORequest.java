@@ -29,7 +29,7 @@ public class MockClienteDTORequest {
 
     public static ResponseEntity<?> getResponse() {
         ResponseDTO responseDTO = ResponseDTO.builder()
-                .resultError("null")
+                .mensajeError("null")
                 .codRespuesta("1")
                 .respuestaServicio("{\"RespValidacion\":{\"Nombre\":\"FORERO PARRA FREDDY\",\"alertas\":false,\"consultasDisponibles\":1,\"Identificacion\":{\"tipo\":1,\"numero\":\"00080036190\"},\"resultado\":\"01\",\"requiereOTP\":true,\"codigoAlerta\":\"00\",\"valNombre\":true,\"resultadoProceso\":true,\"valFechaExp\":true,\"regValidacion\":5964360,\"respuestaAlerta\":\"04\",\"valApellido\":true,\"excluirCliente\":false,\"FechaExpedicion\":{\"timestamp\":986947200000}}}")
                 .build();

@@ -27,6 +27,4 @@ public interface IdentificacionCliente {
     @ValidarEstado
     @RequestMapping(method = RequestMethod.POST, value = "/verificar")
     ResponseEntity<ResponseDTO> validarPreguntas(GeneralPayload<ValidarPreguntasPayload> payload);
-
-
 }

@@ -1,7 +1,7 @@
 package co.com.santander.adapters.primary.rest.validarotp;
 
 import co.com.santander.adapters.common.payload.GeneralPayload;
-import co.com.santander.adapters.primary.rest.dto.Response;
+import co.com.santander.adapters.primary.rest.common.dto.Response;
 import co.com.santander.adapters.primary.rest.validarotp.input.OtpInput;
 import co.com.santander.adapters.primary.rest.validarotp.mapper.OtpConverterPayloadToDto;
 import co.com.santander.ports.primary.ValidarOTPService;

@@ -1,7 +1,7 @@
 package co.com.santander.adapters.primary.rest.identidad;
 
 import co.com.santander.adapters.common.payload.GeneralPayload;
-import co.com.santander.adapters.primary.rest.dto.Response;
+import co.com.santander.adapters.primary.rest.common.dto.Response;
 import co.com.santander.adapters.primary.rest.identidad.mapper.IdentificacionConverterPayloadToDto;
 import co.com.santander.adapters.primary.rest.identidad.input.ClienteInput;
 import co.com.santander.ports.primary.ValidarIdentidadService;

@@ -29,7 +29,7 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
     public Optional<ResponseDTO> validar(ClienteDTO clienteDTO) throws JSONException {
         //Invocar cliente validacion
         Either<GenericError, ResponseDTO> responseValidacion = clienteValidacion(clienteDTO);
-        if (!Objects.isNull(responseValidacion.get().getResultError()) && !responseValidacion.get().getResultError().isEmpty())
+        if (!Objects.isNull(responseValidacion.get().getMensajeError()) && !responseValidacion.get().getMensajeError().isEmpty())
             return Optional.of(responseValidacion.get());
         DatosAdicionalesDTO datosAdicionalesDTO = DatosAdicionalesDTO.builder()
                 .regValidacion(responseValidacion.get().getRespuestaServicio().toString())

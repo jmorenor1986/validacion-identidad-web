@@ -67,7 +67,7 @@ public class OTPServiceImpl implements OTPService {
         return Optional.of((ResponseDTO.builder()
                 .codRespuesta("" + statusCode)
                 .respuestaServicio(null)
-                .resultError("Error llamando al servicio " + nameService)
+                .mensajeError("Error llamando al servicio " + nameService)
                 .build()));
     }
 

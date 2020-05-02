@@ -5,7 +5,7 @@ import co.com.santander.core.dto.ResponseDTO;
 public class UtilResponse {
     public static ResponseDTO setResponse(String error, String code, Object response) {
         return ResponseDTO.builder()
-                .resultError(error)
+                .mensajeError(error)
                 .codRespuesta(code)
                 .respuestaServicio(response)
                 .build();
