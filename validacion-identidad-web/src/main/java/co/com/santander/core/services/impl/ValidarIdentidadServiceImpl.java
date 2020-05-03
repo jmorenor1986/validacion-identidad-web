@@ -1,118 +1,90 @@
 package co.com.santander.core.services.impl;
 
-import co.com.santander.core.dto.*;
-import co.com.santander.core.errors.GenericError;
-import co.com.santander.core.errors.ResourceNotResponse;
+import co.com.santander.adapters.primary.rest.common.exception.BusinessException;
+import co.com.santander.core.dto.ClienteDTO;
+import co.com.santander.core.dto.DatosAdicionalesDTO;
+import co.com.santander.core.dto.ResponseDTO;
+import co.com.santander.core.services.command.GenerarOTPCommandImpl;
+import co.com.santander.core.services.command.IniciarOTPCommandImpl;
+import co.com.santander.core.services.command.PreguntasRetoCommandImpl;
+import co.com.santander.core.services.command.ValidarIdentidadCommandImpl;
 import co.com.santander.ports.primary.ValidarIdentidadService;
-import co.com.santander.ports.secondary.rest.IdentidadService;
-import co.com.santander.ports.secondary.rest.OTPService;
-import io.vavr.control.Either;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
-    private final IdentidadService identidadService;
-    private final OTPService otpService;
+
+    private final ValidarIdentidadCommandImpl validarIdentidadCommand;
+    private final IniciarOTPCommandImpl iniciarOTPCommand;
+    private final PreguntasRetoCommandImpl preguntasRetoCommand;
+    private final GenerarOTPCommandImpl generarOTPCommand;
 
     @Autowired
-    public ValidarIdentidadServiceImpl(IdentidadService identidadService, OTPService otpService) {
-        this.identidadService = identidadService;
-        this.otpService = otpService;
+    public ValidarIdentidadServiceImpl(ValidarIdentidadCommandImpl validarIdentidadCommand, IniciarOTPCommandImpl iniciarOTPCommand,
+                                       PreguntasRetoCommandImpl preguntasRetoCommand, GenerarOTPCommandImpl generarOTPCommand) {
+        this.validarIdentidadCommand = validarIdentidadCommand;
+        this.iniciarOTPCommand = iniciarOTPCommand;
+        this.preguntasRetoCommand = preguntasRetoCommand;
+        this.generarOTPCommand = generarOTPCommand;
     }
 
     @Override
     public Optional<ResponseDTO> validar(ClienteDTO clienteDTO) throws JSONException {
-        //Invocar cliente validacion
-        Either<GenericError, ResponseDTO> responseValidacion = clienteValidacion(clienteDTO);
-        if (!Objects.isNull(responseValidacion.get().getMensajeError()) && !responseValidacion.get().getMensajeError().isEmpty())
-            return Optional.of(responseValidacion.get());
         DatosAdicionalesDTO datosAdicionalesDTO = DatosAdicionalesDTO.builder()
-                .regValidacion(responseValidacion.get().getRespuestaServicio().toString())
                 .datosBasicosDTO(clienteDTO.getDatosBasicosDTO())
                 .numeroCelular(clienteDTO.getNumeroCelular())
                 .build();
-        //Si la respuesta es 1 o 5
-        if (responseValidacion.get().getCodRespuesta().equalsIgnoreCase("1") || responseValidacion.get().getCodRespuesta().equalsIgnoreCase("5")) {
-            //Invoca cliente iniciar transaccion
-            Either<GenericError, ResponseDTO> responseIniciarTransaccion = clienteIniciarTransaccion(datosAdicionalesDTO);
-            //Si codResultadoOTP es 99
-            OTPDTO result = (OTPDTO) responseIniciarTransaccion.get().getRespuestaServicio();
-            if (result.getCodResultadoOTP().equalsIgnoreCase("99")) {
-                //retorno Cod respuesta 3 y el servicio de JSON preguntas
-                return invocaPreguntasReto(clienteDTO.getDatosBasicosDTO(), responseValidacion.get().getRespuestaServicio().toString());
-            }
-            //Si codResultadoOTP no es 99
-            else {
-                //Invocar cliente generarOTP
-                Either<GenericError, ResponseDTO> responseGenerarOTP = invocaGenerarOTP(clienteDTO.getDatosBasicosDTO(),
-                        responseValidacion.get().getRespuestaServicio().toString(), result.getIdTransaccionOTP());
-                //Si codResultadoOTP es 99
-                if (responseGenerarOTP.get().getRespuestaServicio().toString().equalsIgnoreCase("99")) {
-                    //Invocar preguntas reto
-                    return invocaPreguntasReto(clienteDTO.getDatosBasicosDTO(), responseValidacion.get().getRespuestaServicio().toString());
-                } else {
-                    //CodRespuesta 2
-                    return setResponseDTO(responseGenerarOTP.get().getRespuestaServicio(), "2");
+        //Invocar cliente validacion con sus variables
+        Optional<Map<String, Object>> resultadoValidacionIdentidad = validarIdentidadCommand.callService(clienteDTO);
+        if (resultadoValidacionIdentidad.isPresent())
+            if ("01".equalsIgnoreCase(String.valueOf(resultadoValidacionIdentidad.get().get("resultado"))) || "05".equalsIgnoreCase(String.valueOf(resultadoValidacionIdentidad.get().get("resultado")))) {
+                datosAdicionalesDTO.setRegValidacion((String) resultadoValidacionIdentidad.get().get("regValidacion"));
+                Optional<Map<String, Object>> resultadoIniciarTransaccion = iniciarOTPCommand.callService(datosAdicionalesDTO);
+                if (resultadoIniciarTransaccion.isPresent()) {
+                    if ("99".equalsIgnoreCase((String) resultadoIniciarTransaccion.get().get("codResultadoOTP"))) {
+                        datosAdicionalesDTO.setCodigoOTP((String) resultadoIniciarTransaccion.get().get("idTransaccionOTP"));
+                        return invocaPreguntasReto(datosAdicionalesDTO);
+                    } else {
+                        Optional<Map<String, Object>> resultadoGenerarOTP = generarOTPCommand.callService(datosAdicionalesDTO);
+                        if (resultadoGenerarOTP.isPresent()) {
+                            if ("99".equalsIgnoreCase((String) resultadoGenerarOTP.get().get("codResultadoOTP"))) {
+                                datosAdicionalesDTO.setCodigoOTP((String) resultadoGenerarOTP.get().get("idTransaccionOTP"));
+                                return invocaPreguntasReto(datosAdicionalesDTO);
+                            } else {
+                                return setResponse("idTransaccionOTP:" + resultadoGenerarOTP.get().get("idTransaccionOTP").toString(),
+                                        "2", null);
+                            }
+                        }
+                    }
                 }
             }
-        }//Si Cod respuesta no es 1 0 5 pero es 9
-        else if (responseValidacion.get().getCodRespuesta().equalsIgnoreCase("9"))
-            return setResponseDTO("Cliente no viable, se le permite reintentar", "0");
-            //Si Cod respuesta no es 9
-        else
-            return setResponseDTO("Cliente no viable", "1");
+        if ("09".equalsIgnoreCase(String.valueOf(resultadoValidacionIdentidad.get().get("resultado")))) {
+            setResponse("Cliente no viable", "0", null);
+        } else {
+            setResponse("Cliente no viable, se le permite reintentar", "1", null);
+        }
+        throw new BusinessException("Error de datos", new Throwable("Error al consultar los datos"), "500");
     }
 
-
-    private Either<GenericError, ResponseDTO> clienteValidacion(ClienteDTO clienteDTO) throws JSONException {
-        return identidadService.validarIdentidad(clienteDTO)
-                .map(Either::<GenericError, ResponseDTO>right)
-                .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
-    }
-
-    private Either<GenericError, ResponseDTO> obtenerPreguntasReto(DatosAdicionalesDTO datosAdicionalesDTO) {
-        return identidadService.obtenerPreguntasReto(datosAdicionalesDTO)
-                .map(Either::<GenericError, ResponseDTO>right)
-                .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
-    }
-
-    private Either<GenericError, ResponseDTO> clienteIniciarTransaccion(DatosAdicionalesDTO datosAdicionalesDTO) {
-        return otpService.iniciarTransaccion(datosAdicionalesDTO)
-                .map(Either::<GenericError, ResponseDTO>right)
-                .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
-    }
-
-    private Either<GenericError, ResponseDTO> clienteGenerarOTP(DatosAdicionalesDTO datosAdicionalesDTO) {
-        return otpService.generarOTP(datosAdicionalesDTO)
-                .map(Either::<GenericError, ResponseDTO>right)
-                .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
-    }
-
-    private Optional<ResponseDTO> invocaPreguntasReto(DatosBasicosDTO datosBasicosDTO, String regValidacion) {
-        Either<GenericError, ResponseDTO> obtenerPreguntasReto = obtenerPreguntasReto(DatosAdicionalesDTO.builder()
-                .regValidacion(regValidacion)
-                .datosBasicosDTO(datosBasicosDTO)
-                .build());
-        return setResponseDTO(obtenerPreguntasReto.get().getRespuestaServicio(), "3");
-    }
-
-    private Either<GenericError, ResponseDTO> invocaGenerarOTP(DatosBasicosDTO datosBasicosDTO, String regValidacion, String idTransaccionOTP) {
-        return clienteGenerarOTP(DatosAdicionalesDTO.builder()
-                .datosBasicosDTO(datosBasicosDTO)
-                .regValidacion(regValidacion)
-                .idTransaccionOTP(idTransaccionOTP)
-                .build());
-    }
-
-    private Optional<ResponseDTO> setResponseDTO(Object response, String codResult) {
+    private Optional<ResponseDTO> setResponse(String respuestaServicio, String codRespuesta, String mensajeError) {
         return Optional.of(ResponseDTO.builder()
-                .codRespuesta(codResult)
-                .respuestaServicio(response)
+                .codRespuesta(codRespuesta)
+                .respuestaServicio(respuestaServicio)
+                .mensajeError(mensajeError)
                 .build());
+    }
+
+
+    private Optional<ResponseDTO> invocaPreguntasReto(DatosAdicionalesDTO datosAdicionalesDTO) throws JSONException {
+        Optional<Map<String, Object>> resultadoInvocarPreguntasReto = preguntasRetoCommand.callService(datosAdicionalesDTO);
+        if (resultadoInvocarPreguntasReto.isPresent()) {
+            return setResponse((String) resultadoInvocarPreguntasReto.get().get("Preguntas"), "3", null);
+        }
+        throw new BusinessException("Error al invocar preguntas reto", new Throwable("Datos no encontrados"), "500");
     }
 }

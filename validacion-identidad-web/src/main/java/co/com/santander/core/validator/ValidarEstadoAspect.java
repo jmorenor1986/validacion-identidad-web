@@ -16,7 +16,7 @@ public class ValidarEstadoAspect {
         ResponseEntity<ResponseDTO> response = (ResponseEntity<ResponseDTO>) returnValue;
         if (response.getBody() instanceof ResponseDTO)
             if (!"1".equals(response.getBody().getCodRespuesta()))
-                throw new ItacErrorException(response.getBody().getMensajeError().concat("@").concat(response.getBody().getCodRespuesta()),
-                        new Throwable(response.getBody().getRespuestaServicio().toString()));
+                throw new ItacErrorException(response.getBody().getMensajeError().concat("@"),
+                        new Throwable(response.getBody().getRespuestaServicio().toString()), response.getBody().getCodRespuesta());
     }
 }

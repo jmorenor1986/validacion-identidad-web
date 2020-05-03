@@ -4,11 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class ItacErrorException extends RuntimeException {
+public class BusinessException extends RuntimeException {
 
     private String status;
 
-    public ItacErrorException(String message, Throwable cause, String status) {
+    public BusinessException(String message, Throwable cause, String status) {
         super(message, cause);
         this.status = status;
     }
@@ -16,5 +16,4 @@ public class ItacErrorException extends RuntimeException {
     public String status() {
         return this.status;
     }
-
 }

@@ -36,15 +36,9 @@ public class IdentidadServiceImpl implements IdentidadService {
 
     @Override
     public Optional<ResponseDTO> validarIdentidad(ClienteDTO clienteDTO) throws JSONException {
-
-        ResponseEntity<ResponseDTO> result = identificacionCliente.validacionIdentidad(identificacionMapperExt.dtoToRequest(clienteDTO));
-
-        if (result.getStatusCodeValue() == 200) {
-            ResponseDTO responseDTO = result.getBody();
-            responseDTO.setRespuestaServicio(jsonUtilities.getValueForGivenKey("RespValidacion", "regValidacion", (String) responseDTO.getRespuestaServicio()));
-            return Optional.of(responseDTO);
-        } else
-            return Optional.of(UtilResponse.setResponse("Error llamando al servicio validar identidad", "" + result.getStatusCodeValue(), null));
+        return Optional.ofNullable(identificacionCliente.validacionIdentidad(identificacionMapperExt.dtoToRequest(clienteDTO)))
+                .filter(result -> result.getStatusCodeValue() == 200)
+                .map(result -> result.getBody());
     }
 
     @Override

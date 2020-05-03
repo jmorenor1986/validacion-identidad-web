@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JsonUtilitiesImpl implements JsonUtilities {
@@ -18,16 +19,16 @@ public class JsonUtilitiesImpl implements JsonUtilities {
     String json for direction, if not exist return exception
      */
     @Override
-    public String getObjectWithKey(String nameObject, String jsonString) {
+    public Optional<String> getObjectWithKey(String nameObject, String jsonString) {
         try {
             String list[] = nameObject.split("\\.");
             String result = jsonString;
             for (String item : list) {
                 result = getObjectToString(item, result);
             }
-            return result;
+            return Optional.of(result);
         } catch (JSONException ex) {
-            return "";
+            return Optional.empty();
         }
     }
 
@@ -60,15 +61,14 @@ String property for direction, if not exist return exception
     }
 
     @Override
-    public String getValueForGivenKey(String nameObject, String nameKey, String jsonString) {
+    public Optional<String> getValueForGivenKey(String nameObject, String nameKey, String jsonString) {
         try {
-            String object = getObjectWithKey(nameObject, jsonString);
+            String object = getObjectWithKey(nameObject, jsonString).get();
             log.info(object);
             JSONObject jsonObject = getJsonObject(object);
-            Object valor = jsonObject.get(nameKey);
-            return valor.toString();
+            return Optional.of(String.valueOf(jsonObject.get(nameKey)));
         } catch (JSONException ex) {
-            return "";
+            return Optional.empty();
         }
     }
 

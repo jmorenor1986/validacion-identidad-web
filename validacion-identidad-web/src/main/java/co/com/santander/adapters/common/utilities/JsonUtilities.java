@@ -2,9 +2,10 @@ package co.com.santander.adapters.common.utilities;
 
 
 import java.util.List;
+import java.util.Optional;
 
 public interface JsonUtilities {
-    public String getObjectWithKey(String nameObject, String jsonString);
+    public Optional<String> getObjectWithKey(String nameObject, String jsonString);
 
     public Integer getIntWithKey(String nameObject, String jsonString);
 
@@ -12,7 +13,7 @@ public interface JsonUtilities {
 
     public List<String> getValuesForGivenKey(String nameObject, String nameArray, String nameKey, String jsonString);
 
-    public String getValueForGivenKey(String nameObject, String nameKey, String jsonString);
+    public Optional<String> getValueForGivenKey(String nameObject, String nameKey, String jsonString);
 
 }
 
