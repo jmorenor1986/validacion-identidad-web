@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "60e8f5cd-daea-405f-8b9a-ff1b6fe5ee3c",
+		"name": "Experian",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Validacion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestBody\": {\r\n    \"fechaExpedicion\": \"string\",\r\n    \"numeroCelular\": \"string\",\r\n    \"primerApellido\": \"string\",\r\n    \"primerNombre\": \"string\",\r\n    \"segundoApellido\": \"string\",\r\n    \"segundoNombre\": \"string\"\r\n  },\r\n  \"requestHeader\": {\r\n    \"codAliado\": \"string\",\r\n    \"identificacion\": \"string\",\r\n    \"ipOrigen\": \"string\",\r\n    \"numeroSolicitudCredito\": \"string\",\r\n    \"sesionId\": \"string\",\r\n    \"tipoIdentificacion\": \"string\",\r\n    \"usuarioAliado\": \"string\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5002/validacion/v1/identidad/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"validacion",
+						"v1",
+						"identidad",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar OTP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestBody\": {\r\n    \"codigoOTP\": \"string\",\r\n    \"idTransaccionOTP\": \"1231212\",\r\n    \"regValidacion\": \"string\"\r\n  },\r\n  \"requestHeader\": {\r\n    \"codAliado\": \"string\",\r\n    \"identificacion\": \"string\",\r\n    \"ipOrigen\": \"string\",\r\n    \"numeroSolicitudCredito\": \"string\",\r\n    \"sesionId\": \"string\",\r\n    \"tipoIdentificacion\": \"string\",\r\n    \"usuarioAliado\": \"string\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5002/validacion/v1/otp/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"validacion",
+						"v1",
+						"otp",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar preguntas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"requestBody\": {\r\n    \"idCuestionario\": \"string\",\r\n    \"regCuestionario\": \"string\",\r\n    \"respuestas\": [\r\n      {\r\n        \"idPregunta\": \"string\",\r\n        \"idRespuesta\": \"string\"\r\n      }\r\n    ]\r\n  },\r\n  \"requestHeader\": {\r\n    \"codAliado\": \"string\",\r\n    \"identificacion\": \"string\",\r\n    \"ipOrigen\": \"string\",\r\n    \"numeroSolicitudCredito\": \"string\",\r\n    \"sesionId\": \"string\",\r\n    \"tipoIdentificacion\": \"string\",\r\n    \"usuarioAliado\": \"string\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5002/validacion/v1/preguntas/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"validacion",
+						"v1",
+						"preguntas",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

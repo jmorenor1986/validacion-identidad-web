@@ -64,11 +64,10 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
                 }
             }
         if ("09".equalsIgnoreCase(String.valueOf(resultadoValidacionIdentidad.get().get("resultado")))) {
-            setResponse("Cliente no viable", "0", null);
+            return setResponse("Cliente no viable", "0", null);
         } else {
-            setResponse("Cliente no viable, se le permite reintentar", "1", null);
+            return setResponse("Cliente no viable, se le permite reintentar", "1", null);
         }
-        throw new BusinessException("Error de datos", new Throwable("Error al consultar los datos"), "1");
     }
 
     private Optional<ResponseDTO> setResponse(String respuestaServicio, String codRespuesta, String mensajeError) {
