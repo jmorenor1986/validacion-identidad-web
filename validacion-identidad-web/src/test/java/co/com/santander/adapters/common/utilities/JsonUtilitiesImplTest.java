@@ -16,7 +16,7 @@ public class JsonUtilitiesImplTest {
 
     @Test
     public void testGetValueForGivenKeySuccess() {
-        String result = jsonUtilities.getValueForGivenKey("RespValidacion", "resultado", MockResponse.MockResponseSuccess).get();
+        String result = jsonUtilities.getValueForGivenKey("VerificarCodigoOTPRespuesta", "codigoValido", MockResponse.MockResponseSuccess).get();
         Assert.assertNotNull(result);
     }
 }

@@ -11,6 +11,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CuestionarioConverterDtoToPayload extends ConverterDtoToRequest<ValidarPreguntasPayload, CuestionarioDTO> {
 
@@ -28,7 +31,7 @@ public class CuestionarioConverterDtoToPayload extends ConverterDtoToRequest<Val
         payload.setRequestBody(ValidarPreguntasPayload.builder()
                 .idCuestionario(request.getIdCuestionario())
                 .regCuestionario(request.getRegCuestionario())
-                .respuesta(setRespuesta(request.getRespuesta()))
+                .respuestas(setRespuesta(request.getRespuestas()))
                 .solucion(SolucionPayload.builder()
                         .codSapSolucion("")
                         .nitEntidadExterna("")
@@ -37,8 +40,12 @@ public class CuestionarioConverterDtoToPayload extends ConverterDtoToRequest<Val
         return payload;
     }
 
-    private RespuestaPayload setRespuesta(RespuestaCuestionarioDTO respuestaCuestionarioDTO) {
-        return modelMapper.map(respuestaCuestionarioDTO, RespuestaPayload.class);
+    private List<RespuestaPayload> setRespuesta(List<RespuestaCuestionarioDTO> respuestaCuestionarioDTO) {
+        List<RespuestaPayload> result = new ArrayList<>();
+        for (RespuestaCuestionarioDTO item : respuestaCuestionarioDTO) {
+            result.add(modelMapper.map(item, RespuestaPayload.class));
+        }
+        return result;
     }
 
 

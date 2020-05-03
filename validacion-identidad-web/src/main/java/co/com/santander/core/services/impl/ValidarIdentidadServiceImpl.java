@@ -68,7 +68,7 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
         } else {
             setResponse("Cliente no viable, se le permite reintentar", "1", null);
         }
-        throw new BusinessException("Error de datos", new Throwable("Error al consultar los datos"), "500");
+        throw new BusinessException("Error de datos", new Throwable("Error al consultar los datos"), "1");
     }
 
     private Optional<ResponseDTO> setResponse(String respuestaServicio, String codRespuesta, String mensajeError) {

@@ -14,13 +14,13 @@ public interface Command {
         Optional<String> respuestaValidacion = jsonUtilities.getValueForGivenKey(nameObject, nameKey, json);
         if (respuestaValidacion.isPresent())
             return respuestaValidacion.get();
-        throw new BusinessException("Error al consultar la respuesta", new Throwable("Campo  no existe" + nameKey), "500");
+        throw new BusinessException("Error al consultar la respuesta", new Throwable("Campo  no existe " + nameKey), "0");
     }
 
     public default String returnObjectJson(String nameObject, String json, JsonUtilities jsonUtilities) {
         Optional<String> respuestaObjecto = jsonUtilities.getObjectWithKey(nameObject, json);
         if (respuestaObjecto.isPresent())
             return respuestaObjecto.get();
-        throw new BusinessException("Error al consultar la respuesta", new Throwable("Objecto  no existe" + nameObject), "500");
+        throw new BusinessException("Error al consultar la respuesta", new Throwable("Objecto  no existe" + nameObject), "0");
     }
 }

@@ -1,59 +1,43 @@
 package co.com.santander.core.services.impl;
 
+import co.com.santander.adapters.primary.rest.common.exception.BusinessException;
 import co.com.santander.core.dto.DatosAdicionalesDTO;
-import co.com.santander.core.dto.DatosBasicosDTO;
 import co.com.santander.core.dto.ResponseDTO;
-import co.com.santander.core.errors.GenericError;
-import co.com.santander.core.errors.ResourceNotResponse;
+import co.com.santander.core.services.command.PreguntasRetoCommandImpl;
+import co.com.santander.core.services.command.ValidarOTPCommandImpl;
 import co.com.santander.ports.primary.ValidarOTPService;
-import co.com.santander.ports.secondary.rest.IdentidadService;
-import co.com.santander.ports.secondary.rest.OTPService;
-import io.vavr.control.Either;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class ValidarOTPServiceImpl implements ValidarOTPService {
-    private final OTPService otpService;
-    private final IdentidadService identidadService;
+    private final ValidarOTPCommandImpl validarOTPCommand;
+    private final PreguntasRetoCommandImpl preguntasRetoCommand;
 
     @Autowired
-    public ValidarOTPServiceImpl(OTPService otpService, IdentidadService identidadService) {
-        this.otpService = otpService;
-        this.identidadService = identidadService;
+    public ValidarOTPServiceImpl(ValidarOTPCommandImpl validarOTPCommand, PreguntasRetoCommandImpl preguntasRetoCommand) {
+        this.validarOTPCommand = validarOTPCommand;
+        this.preguntasRetoCommand = preguntasRetoCommand;
     }
 
     @Override
-    public Optional<ResponseDTO> validarOTP(DatosAdicionalesDTO datosAdicionalesDTO) {
+    public Optional<ResponseDTO> validarOTP(DatosAdicionalesDTO datosAdicionalesDTO) throws JSONException {
         //invocar cliente validarOTP
-        Either<GenericError, ResponseDTO> verificarOTP = clienteVerificarOTP(datosAdicionalesDTO);
-        //TODO validar que respuesta debe traer
-        if (verificarOTP.get().getRespuestaServicio().toString().length() > 0)
-            return setResponseDTO(null, "1");
-        else
-            return invocaPreguntasReto(datosAdicionalesDTO.getDatosBasicosDTO(), datosAdicionalesDTO.getRegValidacion());
-    }
+        Optional<Map<String, Object>> resultadoClienteVerificarOTP = validarOTPCommand.callService(datosAdicionalesDTO);
 
-    private Either<GenericError, ResponseDTO> clienteVerificarOTP(DatosAdicionalesDTO datosAdicionalesDTO) {
-        return otpService.generarOTP(datosAdicionalesDTO)
-                .map(Either::<GenericError, ResponseDTO>right)
-                .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
-    }
-
-    private Optional<ResponseDTO> invocaPreguntasReto(DatosBasicosDTO datosBasicosDTO, String regValidacion) {
-        Either<GenericError, ResponseDTO> obtenerPreguntasReto = obtenerPreguntasReto(DatosAdicionalesDTO.builder()
-                .regValidacion(regValidacion)
-                .datosBasicosDTO(datosBasicosDTO)
-                .build());
-        return setResponseDTO(obtenerPreguntasReto.get().getRespuestaServicio(), "2");
-    }
-
-    private Either<GenericError, ResponseDTO> obtenerPreguntasReto(DatosAdicionalesDTO datosAdicionalesDTO) {
-        return identidadService.obtenerPreguntasReto(datosAdicionalesDTO)
-                .map(Either::<GenericError, ResponseDTO>right)
-                .orElse(Either.left(new ResourceNotResponse("El servicio no responde")));
+        if (resultadoClienteVerificarOTP.isPresent()) {
+            if (resultadoClienteVerificarOTP.get().get("codigoValido").equals(Boolean.FALSE)) {
+                Optional<Map<String, Object>> resultadoPreguntasReto = preguntasRetoCommand.callService(datosAdicionalesDTO);
+                return setResponseDTO(resultadoPreguntasReto.get().get("Preguntas"), "2");
+            } else {
+                return setResponseDTO(datosAdicionalesDTO.getIdTransaccionOTP(), "1");
+            }
+        }
+        throw new BusinessException("Error de datos", new Throwable("Error al consultar los datos"), "1");
     }
 
     private Optional<ResponseDTO> setResponseDTO(Object response, String codResult) {
