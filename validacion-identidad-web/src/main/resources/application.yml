@@ -19,3 +19,4 @@ logging:
           adapters:
             secondary:
               rest: DEBUG
+  path: C:\clientes\
