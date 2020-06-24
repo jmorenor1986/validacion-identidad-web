@@ -1,0 +1,5 @@
+{
+  "codRespuesta":1,
+  "respuestaServicio":"{\"Evaluacion\":{\"score\":574,\"resultado\":true,\"codigoSeguridad\":\"5GV9HFG\",\"preguntasCompletas\":true,\"idCuestionario\":50033541,\"regCuestionario\":4386544,\"aprobado100PorCientoOK\":false,\"aprobacion\":true}}",
+  "mensajeError":null
+}

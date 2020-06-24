@@ -27,6 +27,8 @@
         <vavr.version>1.0.0-alpha-3</vavr.version>
         <percent.coverage>0%</percent.coverage>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+        <wiremock.version>1.58</wiremock.version>
+        <httpclient.version>4.5</httpclient.version>
     </properties>
     <dependencies>
         <dependency>
@@ -116,6 +118,17 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-ext</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>${wiremock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -131,4 +144,15 @@
     <modules>
         <module>validacion-identidad-web</module>
     </modules>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.4.0.905</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
