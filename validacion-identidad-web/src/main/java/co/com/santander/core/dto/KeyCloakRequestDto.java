@@ -21,6 +21,8 @@ public class KeyCloakRequestDto {
     private String grantType;
     @JsonProperty("url")
     private String url;
+    @JsonProperty("enable")
+    private Boolean enable;
 
     public MultiValueMap<String, String> getParams() {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();

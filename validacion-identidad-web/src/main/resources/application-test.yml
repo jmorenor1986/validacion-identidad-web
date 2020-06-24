@@ -1,10 +1,30 @@
+server:
+  servlet:
+    context-path: /validacion
+  port: 5002
+
 evidente-master:
   service-name: evidente-master
   url: https://experian-validacion.free.beeceptor.com
-
-servicios:
-  otp: http://evidente-master-credito-consumo-dev.apps.sv-bsnc-arquitectura-openshift.itac.com.co
+  service-name-otp: otp-evidente-master
 
 otp:
   codigoValidacion: 123
 
+logging:
+  level:
+    co:
+      com:
+        santander:
+          adapters:
+            secondary:
+              rest: DEBUG
+  path: C:\clientes\
+
+keycloak:
+  client:
+    client-id: 3scale
+    client-secret: e8bcd591-fa84-439c-804f-cd4e88f8246e
+    grant-type: client_credentials
+    url: http://localhost:8080/auth/realms/3scale-api/protocol/openid-connect/token
+    enable: true
