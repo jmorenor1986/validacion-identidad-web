@@ -2,31 +2,34 @@ package co.com.santander.adapters.secondary.rest.identidad;
 
 import co.com.santander.core.dto.ClienteDTO;
 import co.com.santander.core.dto.DatosBasicosDTO;
+import co.com.santander.core.dto.ResponseDTO;
 import co.com.santander.ports.secondary.rest.IdentidadService;
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.common.Slf4jNotifier;
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import org.json.JSONException;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Optional;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @Profile("test")
+@ActiveProfiles("test")
 public class IdentidadService_IT {
 
     @Autowired
     private IdentidadService identidadService;
-    @Rule
-    WireMockServer wireMockServer = new WireMockServer(new WireMockConfiguration().notifier(new Slf4jNotifier(true)));
+    public WireMockServer wireMockServer = new WireMockServer(7080);
     private ClienteDTO clienteDTO;
 
     @Before
@@ -49,15 +52,19 @@ public class IdentidadService_IT {
                         .build())
                 .segundoNombre("")
                 .build();
-        configureFor("localhost", 8080);
+        configureFor("localhost", 7080);
         stubFor(post(urlEqualTo("/auth/realms/3scale-api/protocol/openid-connect/token")).willReturn(aResponse().withHeader("Content-Type", "application/json").withBodyFile("responseKeyCloak.json")));
     }
 
     @Test
-    public void testValidarIdentidadSuccess() {
-        WireMockServer wireMockServerValidarIdentidad = new WireMockServer(new WireMockConfiguration().notifier(new Slf4jNotifier(true)));
-        configureFor("localhost", 8081);
-        stubFor(post(urlEqualTo("/auth/realms/3scale-api/protocol/openid-connect/token")).willReturn(aResponse().withHeader("Content-Type", "application/json").withBodyFile("responseKeyCloak.json")));
+    public void testValidarIdentidadSuccess() throws JSONException {
+        WireMockServer wireMockServerValidarIdentidad = new WireMockServer(7081);
+        wireMockServerValidarIdentidad.start();
+        configureFor("localhost", 7081);
+        stubFor(post(urlEqualTo("/evidente/validar")).willReturn(aResponse().withHeader("Content-Type", "application/json").withBodyFile("responseValidarIdentidad.json")));
+        Optional<ResponseDTO> result = identidadService.validarIdentidad(clienteDTO);
+        Assert.assertNotNull(result);
+        wireMockServerValidarIdentidad.stop();
     }
 
     @After
