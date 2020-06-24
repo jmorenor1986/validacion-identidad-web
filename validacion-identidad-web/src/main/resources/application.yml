@@ -5,7 +5,7 @@ server:
 
 evidente-master:
   service-name: evidente-master
-  url: https://experian-validacion.free.beeceptor.com
+  url: http://tmp-evidente-master-dev-ccf-service.cloudsapps.cosanpre.corp
   service-name-otp: otp-evidente-master
 
 otp:
