@@ -5,7 +5,7 @@ server:
 
 evidente-master:
   service-name: evidente-master
-  url: https://experian-validacion.free.beeceptor.com
+  url: http://tmp-evidente-master-dev-ccf-service.cloudsapps.cosanpre.corp
   service-name-otp: otp-evidente-master
 
 otp:
@@ -19,3 +19,12 @@ logging:
           adapters:
             secondary:
               rest: DEBUG
+  path: C:\clientes\
+
+keycloak:
+  client:
+    client-id: 3scale
+    client-secret: e8bcd591-fa84-439c-804f-cd4e88f8246e
+    grant-type: client_credentials
+    url: https://sso-management-security.cloudapps.cosanpre.corp/auth/realms/3scale-api/protocol/openid-connect
+    enable: true

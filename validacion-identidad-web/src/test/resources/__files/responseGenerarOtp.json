@@ -1,0 +1,5 @@
+{
+  "codRespuesta":1,
+  "respuestaServicio":"{\"GenerarCodigoOTPRespuesta\":{\"codParametrizacion\":3252,\"ResultadoValidacion\":{\"rankingReconocer\":1,\"numeroValido\":true},\"DatosCuestionario\":{\"procesoEvidente\":\"VALDCN\"},\"ResultadoGeneracion\":{\"timestampOTP\":\"2020/03/25 10:02:57\",\"codResultadoOTP\":4,\"requiereCuestionario\":true,\"idTransaccionOTP\":\"af11967c-ebcd-4537-bf7e-957681c8601a\",\"resultadoOTP\":true}}}",
+  "mensajeError":null
+}

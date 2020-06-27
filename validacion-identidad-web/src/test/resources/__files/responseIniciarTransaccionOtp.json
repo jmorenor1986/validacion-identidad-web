@@ -1,0 +1,5 @@
+{
+  "codRespuesta":1,
+  "respuestaServicio":"{\"IniciarTransaccionOTPRespuesta\":{\"codParametrizacion\":3252,\"DatosCuestionario\":{\"procesoEvidente\":\"VALDCN\",\"regValidacion\":5973865},\"ResultadoGeneracion\":{\"codResultadoOTP\":4,\"idTransaccionOTP\":\"af11967c-ebcd-4537-bf7e-957681c8601a\",\"resultadoOTP\":true}}}",
+  "mensajeError":null
+}
