@@ -5,6 +5,7 @@ import co.com.santander.core.dto.DatosBasicosDTO;
 import co.com.santander.core.dto.ResponseDTO;
 import co.com.santander.ports.secondary.rest.OTPService;
 import com.github.tomakehurst.wiremock.WireMockServer;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -81,5 +82,11 @@ public class OTPServiceTest_IT {
         Optional<ResponseDTO> result = otpService.verificarOTP(datosAdicionalesDTO);
         Assert.assertNotNull(result);
         wireMockIniciarTransaccion.stop();
+    }
+
+
+    @After
+    public void after() {
+        wireMockServer.stop();
     }
 }

@@ -50,7 +50,7 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
                         datosAdicionalesDTO.setCodigoOTP((String) resultadoIniciarTransaccion.get().get("idTransaccionOTP"));
                         return invocaPreguntasReto(datosAdicionalesDTO);
                     } else {
-                        datosAdicionalesDTO.setCodigoOTP((String) resultadoIniciarTransaccion.get().get("idTransaccionOTP"));
+                        datosAdicionalesDTO.setIdTransaccionOTP((String) resultadoIniciarTransaccion.get().get("idTransaccionOTP"));
                         Optional<Map<String, Object>> resultadoGenerarOTP = generarOTPCommand.callService(datosAdicionalesDTO);
                         if (resultadoGenerarOTP.isPresent()) {
                             if ("99".equalsIgnoreCase((String) resultadoGenerarOTP.get().get("codResultadoOTP"))) {
