@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
-    public final ResponseEntity<Response> handlerMandatoryFieldException(Exception ex, WebRequest request) {
+    public final ResponseEntity<Response> handlerException(Exception ex, WebRequest request) {
         Response response = new Response();
         response.setCodRespuesta("0");
         response.setMensajeError(ex.getMessage());
