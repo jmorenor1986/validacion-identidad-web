@@ -6,10 +6,12 @@ import co.com.santander.core.dto.ResponseDTO;
 import co.com.santander.core.services.command.PreguntasRetoCommandImpl;
 import co.com.santander.core.services.command.ValidarOTPCommandImpl;
 import co.com.santander.ports.primary.ValidarOTPService;
+import com.google.common.hash.Hashing;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,10 +29,11 @@ public class ValidarOTPServiceImpl implements ValidarOTPService {
     @Override
     public Optional<ResponseDTO> validarOTP(DatosAdicionalesDTO datosAdicionalesDTO) throws JSONException {
         //invocar cliente validarOTP
+        datosAdicionalesDTO.setCodigoOTP(Hashing.sha256().hashString(datosAdicionalesDTO.getCodigoOTP(), StandardCharsets.UTF_8).toString());
         Optional<Map<String, Object>> resultadoClienteVerificarOTP = validarOTPCommand.callService(datosAdicionalesDTO);
 
         if (resultadoClienteVerificarOTP.isPresent()) {
-            if (resultadoClienteVerificarOTP.get().get("codigoValido").equals(Boolean.FALSE)) {
+            if (resultadoClienteVerificarOTP.get().get("codigoValido").toString().equalsIgnoreCase("false")) {
                 Optional<Map<String, Object>> resultadoPreguntasReto = preguntasRetoCommand.callService(datosAdicionalesDTO);
                 return setResponseDTO(resultadoPreguntasReto.get().get("Preguntas"), "2");
             } else {

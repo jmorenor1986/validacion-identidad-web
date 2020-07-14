@@ -57,7 +57,8 @@ public class ValidarIdentidadServiceImpl implements ValidarIdentidadService {
                                 datosAdicionalesDTO.setCodigoOTP((String) resultadoGenerarOTP.get().get("idTransaccionOTP"));
                                 return invocaPreguntasReto(datosAdicionalesDTO);
                             } else {
-                                return setResponse("{idTransaccionOTP:" + resultadoGenerarOTP.get().get("idTransaccionOTP").toString().concat(",regValidacion:").concat(datosAdicionalesDTO.getRegValidacion()),
+                                return setResponse("{idTransaccionOTP:" + resultadoGenerarOTP.get().get("idTransaccionOTP").toString().concat(",regValidacion:").concat(datosAdicionalesDTO.getRegValidacion()
+                                        .concat("}")),
                                         "2", null);
                             }
                         }
